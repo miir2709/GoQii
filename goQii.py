@@ -47,5 +47,15 @@ def existingPatient():
     return render_template('existingPatient.html', title = 'Input Data')
 
 
+@app.route('/entercode',methods=['GET','POST'])
+def entercode():
+    if request.method == 'POST':
+        code = request.form['dcode']
+        print(code)
+        return render_template('existingPatient.html', title = 'Input Data')
+    else:
+        return render_template('inputcode.html', title = 'Input Data')
+
+
 if __name__ == '__main__':
     app.run(debug=True)
