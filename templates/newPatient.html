@@ -4,9 +4,9 @@
         <div class="container">
             <div class="row fullscreen align-items-center justify-content-center">
                 <div class="banner-content col-lg-6 col-md-24">
-                    <form action="{{ url_for('existingPatient') }}">
+                    <form method="POST">
                         <div>
-                            Device Code: <input type = "text" name = "firstName" required/>
+                            Device Code: <input type = "text" name = "code" value='code' required/>
                         </div>
                         <br>
                         <div>
@@ -33,7 +33,7 @@
                             Date of +ve COVID-19 Test: <input type="date" name = "date_of_test" required/>
                         </div>
                         <div>
-                            Date of start of wearable device: <input type="date" name = "date_of_test" required/>
+                            Date of start of wearable device: <input type="date" name = "date_of_device" required/>
                         </div>
                         <div>
                             Date of discharge: <input type="date" name = "date_of_discharge" />
