@@ -34,25 +34,49 @@ def newPatient():
         date_discharge = request.form['date_of_discharge']
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute('INSERT INTO patient VALUES (NULL, %s, %s, %s,%s,%s,%s,%s,%s)', (gender, age, religion,occupation,date_admission,date_test,date_device,date_discharge))
+        pat_id = cursor.execute('SELECT id FROM patient WHERE id = (SELECT LAST_INSERT_ID())')
+        if pat_id > 0:
+            pat_id = cursor.fetchall()
+        print("Patient ID", pat_id[0]['id'])
+        cursor.execute('INSERT INTO device VALUES (%s, %s)', (device_code, pat_id[0]['id']))
         mysql.connection.commit()
-        return redirect(url_for('existingPatient'))
+        cursor.close()
+        return redirect(url_for('existingPatient', device_code=device_code))
     else:
         return render_template('newPatient.html', title='Input Data')
 
 
 
     
+@app.route('/existingPatient/<device_code>')
 @app.route('/existingPatient')
-def existingPatient():
-    return render_template('existingPatient.html', title = 'Input Data')
+def existingPatient(device_code):
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    patient = cursor.execute(f'SELECT * FROM device WHERE device_id = {device_code}')
+    if patient > 0:
+        patient = cursor.fetchall()
+    print(patient)
+    patient_info = cursor.execute(f"SELECT * FROM patient WHERE id = {patient[0]['patient_id']}")
+    if patient_info > 0:
+        patient_info = cursor.fetchall()
+    print(patient_info)
+    return render_template('existingPatient.html', title = 'Input Data', info=patient_info[0])
 
 
 @app.route('/entercode',methods=['GET','POST'])
 def entercode():
     if request.method == 'POST':
         code = request.form['dcode']
-        print(code)
-        return render_template('existingPatient.html', title = 'Input Data')
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        patient = cursor.execute(f'SELECT * FROM device WHERE device_id = {code}')
+        if patient > 0:
+            patient = cursor.fetchall()
+        print(patient)
+        patient_info = cursor.execute(f"SELECT * FROM patient WHERE id = {patient[0]['patient_id']}")
+        if patient_info > 0:
+            patient_info = cursor.fetchall()
+        print(patient_info)
+        return render_template('existingPatient.html', title = 'Input Data', info=patient_info[0])
     else:
         return render_template('inputcode.html', title = 'Input Data')
 

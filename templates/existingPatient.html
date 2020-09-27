@@ -7,6 +7,18 @@
         <div class="container">
             <div class="row fullscreen align-items-center justify-content-center">
                 <div class="banner-content col-lg-6 col-md-12">
+                    <div style="margin-top: 20%;">
+                        {% if info %}
+                            <h4>Gender: {{ info.gender }}</h4>
+                            <h4>Age: {{ info.age }}</h4>
+                            <h4>Religion: {{ info.religion }}</h4>
+                            <h4>Occupation: {{ info.occupation }}</h4>
+                            <h4>Date of Admission: {{ info.date_admission }}</h4>
+                            <h4>Date of Covid + Test: {{ info.date_test }}</h4>
+                            <h4>Date of wearable device: {{ info.date_device }}</h4>
+                            <h4>Date of discharge: {{ info.date_discharge }}</h4>
+                        {% endif %}
+                    </div>
                     <div>
                         <table class="table">
                             <thead>
