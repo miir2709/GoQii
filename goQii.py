@@ -76,7 +76,7 @@ def entercode():
         if patient_info > 0:
             patient_info = cursor.fetchall()
         print(patient_info)
-        return render_template('existingPatient.html', title = 'Input Data', info=patient_info[0])
+        return redirect(url_for('existingPatient',device_code=code))
     else:
         return render_template('inputcode.html', title = 'Input Data')
 
