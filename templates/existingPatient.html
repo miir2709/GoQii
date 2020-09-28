@@ -198,16 +198,20 @@
                         <button class="primary-btn2 mt-20 text-uppercase" onclick="toggleHideShow()">Add Data For Patient with code : ....<span class="lnr lnr-arrow-right"></span></button>
                     </div>                      
                     <div id="myDIV" style="display: none;">
-                            <form >
+                            <form method = "POST" action="" name = "goqiiReadingForm">
+                                <!-- <input type="hidden" name="goqiiReadingForm" value="2"> -->
                                     <div style="padding: 2 em;">
-                                        Date when the reading is taken <input type = "date" name = "date" required />
+                                        Date when the reading is taken <input type = "date" name = "currentDate" required />
+                                    </div>
+                                    <div style="padding: 2 em;">
+                                        Current Day Number <input type = "number" name = "currentDayNum" required />
                                     </div>
                                     <div>
                                         <table class="table">
                                             <thead>
                                             <tr>
                                                 <th>
-                                                Hospital Equipment
+                                                GOQII Device
                                                 </th>
                                             </tr>
                                             </thead>
@@ -216,93 +220,204 @@
                                                 <td>Time 9:00 am</td>
                                                 <td>Temperature (deg C)</td>
                                                 <td>
-                                                <input type="number" step = "0.1" style="width: 50px; padding: 1px" value="37.2"> 
+                                                <input type="number" step = "0.1" style="width: 50px; padding: 1px" name = "temperature9" > 
                                                 </td>
-                                                <td>BP  (mm Hg)</td>
+                                                <td>BP High (mm Hg)</td>
                                                 <td>
-                                                <input type="text" style="width: 60px; padding: 1px" value=""> 
+                                                <input type="text" style="width: 60px; padding: 1px" name ="bpHigh9"> 
+                                                <td>BP Low  (mm Hg)</td>
+                                                <td>
+                                                <input type="text" style="width: 60px; padding: 1px" name ="bpLow9"> 
                                                 </td>
                                                 <td>Pulse (beats/min)</td>
                                                 <td>
-                                                <input type="number" style="width: 45px; padding: 1px" value="0"> 
+                                                <input type="number" style="width: 45px; padding: 1px" name = "pulse9"> 
                                                 </td>
                                                 <td>SpO2 (%)</td>
                                                 <td>
-                                                <input type="number" style="width: 45px; padding: 1px" value="96"> 
+                                                <input type="number" style="width: 45px; padding: 1px" name = "spo29" > 
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>Time 12:00 pm</td>
                                                 <td>Temperature (deg C)</td>
                                                 <td>
-                                                <input type="number" step = "0.1" style="width: 50px; padding: 1px" value="37.2"> 
+                                                <input type="number" step = "0.1" style="width: 50px; padding: 1px" name = "temperature12" > 
                                                 </td>
-                                                <td>BP  (mm Hg)</td>
+                                                <td>BP High (mm Hg)</td>
                                                 <td>
-                                                <input type="text" style="width: 60px; padding: 1px" value=""> 
+                                                <input type="text" style="width: 60px; padding: 1px" name ="bpHigh12"> 
+                                                <td>BP Low  (mm Hg)</td>
+                                                <td>
+                                                <input type="text" style="width: 60px; padding: 1px" name ="bpLow12"> 
                                                 </td>
                                                 <td>Pulse (beats/min)</td>
                                                 <td>
-                                                <input type="number" style="width: 45px; padding: 1px" value="0"> 
+                                                <input type="number" style="width: 45px; padding: 1px" name = "pulse12"> 
                                                 </td>
                                                 <td>SpO2 (%)</td>
                                                 <td>
-                                                <input type="number" style="width: 45px; padding: 1px" value="96"> 
+                                                <input type="number" style="width: 45px; padding: 1px" name = "spo212" > 
                                                 </td>
                                             </tr>
+                                            <tr>
+                                                <td>Time 3:00 pm</td>
+                                                <td>Temperature (deg C)</td>
+                                                <td>
+                                                <input type="number" step = "0.1" style="width: 50px; padding: 1px" name = "temperature3" > 
+                                                </td>
+                                                <td>BP High (mm Hg)</td>
+                                                <td>
+                                                <input type="text" style="width: 60px; padding: 1px" name ="bpHigh3"> 
+                                                <td>BP Low  (mm Hg)</td>
+                                                <td>
+                                                <input type="text" style="width: 60px; padding: 1px" name ="bpLow3"> 
+                                                </td>
+                                                <td>Pulse (beats/min)</td>
+                                                <td>
+                                                <input type="number" style="width: 45px; padding: 1px" name = "pulse3"> 
+                                                </td>
+                                                <td>SpO2 (%)</td>
+                                                <td>
+                                                <input type="number" style="width: 45px; padding: 1px" name = "spo23" > 
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Time 6:00 pm</td>
+                                                <td>Temperature (deg C)</td>
+                                                <td>
+                                                <input type="number" step = "0.1" style="width: 50px; padding: 1px" name = "temperature6" > 
+                                                </td>
+                                                <td>BP High (mm Hg)</td>
+                                                <td>
+                                                <input type="text" style="width: 60px; padding: 1px" name ="bpHigh6"> 
+                                                <td>BP Low  (mm Hg)</td>
+                                                <td>
+                                                <input type="text" style="width: 60px; padding: 1px" name ="bpLow6"> 
+                                                </td>
+                                                <td>Pulse (beats/min)</td>
+                                                <td>
+                                                <input type="number" style="width: 45px; padding: 1px" name = "pulse6"> 
+                                                </td>
+                                                <td>SpO2 (%)</td>
+                                                <td>
+                                                <input type="number" style="width: 45px; padding: 1px" name = "spo26" > 
+                                                </td>
+                                            </tr>
+                                        </div>
                                             </tbody>
                                         </table>
+                                        <!-- <button type="submit" name = "saveGoqiiReading" value = "saveGoqiiReading">
+                                            Save GoQii Device Reading
+                                        </button>
+                                    </form> -->
+                                    <!-- <form method = "POST" action="" name = "hospitalReadingForm"> -->
                                         <table class="table">
                                             <thead>
                                             <tr>
                                                 <th>
-                                                GOQii Smart Watch
+                                                HOSPITAL READING
                                                 </th>
                                             </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>Time 9:00 am</td>
-                                                    <td>Temperature (deg C)</td>
-                                                    <td>
-                                                    <input type="number" step = "0.1" style="width: 50px; padding: 1px" value="37.2"> 
-                                                    </td>
-                                                    <td>BP  (mm Hg)</td>
-                                                    <td>
-                                                    <input type="text" style="width: 60px; padding: 1px" value=""> 
-                                                    </td>
-                                                    <td>Pulse (beats/min)</td>
-                                                    <td>
-                                                    <input type="number" style="width: 45px; padding: 1px" value="0"> 
-                                                    </td>
-                                                    <td>SpO2 (%)</td>
-                                                    <td>
-                                                    <input type="number" style="width: 45px; padding: 1px" value="96"> 
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Time 9:00 am</td>
-                                                    <td>Temperature (deg C)</td>
-                                                    <td>
-                                                    <input type="number" step = "0.1" style="width: 50px; padding: 1px" value="37.2"> 
-                                                    </td>
-                                                    <td>BP  (mm Hg)</td>
-                                                    <td>
-                                                    <input type="text" style="width: 60px; padding: 1px" value=""> 
-                                                    </td>
-                                                    <td>Pulse (beats/min)</td>
-                                                    <td>
-                                                    <input type="number" style="width: 45px; padding: 1px" value="0"> 
-                                                    </td>
-                                                    <td>SpO2 (%)</td>
-                                                    <td>
-                                                    <input type="number" style="width: 45px; padding: 1px" value="96"> 
-                                                    </td>
-                                                </tr>
+                                <!-- <input type="hidden" name="goqiiReadingForm" value="2"> -->
+
+                                                 <tr>
+                                                <td>Time 9:00 am</td>
+                                                <td>Temperature (deg C)</td>
+                                                <td>
+                                                <input type="number" step = "0.1" style="width: 50px; padding: 1px" name = "temperature9goqii" > 
+                                                </td>
+                                                <td>BP High (mm Hg)</td>
+                                                <td>
+                                                <input type="text" style="width: 60px; padding: 1px" name ="bpHigh9goqii"> 
+                                                <td>BP Low  (mm Hg)</td>
+                                                <td>
+                                                <input type="text" style="width: 60px; padding: 1px" name ="bpLow9goqii"> 
+                                                </td>
+                                                <td>Pulse (beats/min)</td>
+                                                <td>
+                                                <input type="number" style="width: 45px; padding: 1px" name = "pulse9goqii"> 
+                                                </td>
+                                                <td>SpO2 (%)</td>
+                                                <td>
+                                                <input type="number" style="width: 45px; padding: 1px" name = "spo29goqii" > 
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Time 12:00 pm</td>
+                                                <td>Temperature (deg C)</td>
+                                                <td>
+                                                <input type="number" step = "0.1" style="width: 50px; padding: 1px" name = "temperature12goqii" > 
+                                                </td>
+                                                <td>BP High (mm Hg)</td>
+                                                <td>
+                                                <input type="text" style="width: 60px; padding: 1px" name ="bpHigh12goqii"> 
+                                                <td>BP Low  (mm Hg)</td>
+                                                <td>
+                                                <input type="text" style="width: 60px; padding: 1px" name ="bpLow12goqii"> 
+                                                </td>
+                                                <td>Pulse (beats/min)</td>
+                                                <td>
+                                                <input type="number" style="width: 45px; padding: 1px" name = "pulse12goqii"> 
+                                                </td>
+                                                <td>SpO2 (%)</td>
+                                                <td>
+                                                <input type="number" style="width: 45px; padding: 1px" name = "spo212goqii" > 
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Time 3:00 pm</td>
+                                                <td>Temperature (deg C)</td>
+                                                <td>
+                                                <input type="number" step = "0.1" style="width: 50px; padding: 1px" name = "temperature3goqii" > 
+                                                </td>
+                                                <td>BP High (mm Hg)</td>
+                                                <td>
+                                                <input type="text" style="width: 60px; padding: 1px" name ="bpHigh3goqii"> 
+                                                <td>BP Low  (mm Hg)</td>
+                                                <td>
+                                                <input type="text" style="width: 60px; padding: 1px" name ="bpLow3goqii"> 
+                                                </td>
+                                                <td>Pulse (beats/min)</td>
+                                                <td>
+                                                <input type="number" style="width: 45px; padding: 1px" name = "pulse3goqii"> 
+                                                </td>
+                                                <td>SpO2 (%)</td>
+                                                <td>
+                                                <input type="number" style="width: 45px; padding: 1px" name = "spo23goqii" > 
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Time 6:00 pm</td>
+                                                <td>Temperature (deg C)</td>
+                                                <td>
+                                                <input type="number" step = "0.1" style="width: 50px; padding: 1px" name = "temperature6goqii" > 
+                                                </td>
+                                                <td>BP High (mm Hg)</td>
+                                                <td>
+                                                <input type="text" style="width: 60px; padding: 1px" name ="bpHigh6goqii"> 
+                                                <td>BP Low  (mm Hg)</td>
+                                                <td>
+                                                <input type="text" style="width: 60px; padding: 1px" name ="bpLow6goqii"> 
+                                                </td>
+                                                <td>Pulse (beats/min)</td>
+                                                <td>
+                                                <input type="number" style="width: 45px; padding: 1px" name = "pulse6goqii"> 
+                                                </td>
+                                                <td>SpO2 (%)</td>
+                                                <td>
+                                                <input type="number" style="width: 45px; padding: 1px" name = "spo26goqii" > 
+                                                </td>
+                                            </tr>
                                             </tbody>
                                         </table>
-                                    </div>
-                            </form>
+                                        <button type="submit" > 
+                                            Save 
+                                        </button>
+                                    </form>
+                            </div>
                         </div>
                 </div>
             </div>
