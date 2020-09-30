@@ -7,294 +7,487 @@
         <div class="container">
             <div class="row fullscreen align-items-center justify-content-center">
                 <div class="banner-content col-lg-6 col-md-12">
-                    <div>
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th>
-                                Hospital Equipment
-                                </th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>Time 9:00 am</td>
-                                <td>Temperature: (deg C) </td>
-                                <td>
-                                 37.2
-                                </td>
-                                <td>BP  (mm Hg)</td>
-                                <td>
-                                110/70 
-                                </td>
-                                <td>Pulse (beats/min)</td>
-                                <td>
-                                    98
-                                </td>
-                                <td>SpO2 (%)</td>
-                                <td>
-                                    97
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Time 12:00 pm</td>
-                                <td>Temperature: (deg C) </td>
-                                <td>
-                                 37.2
-                                </td>
-                                <td>BP  (mm Hg)</td>
-                                <td>
-                                110/70 
-                                </td>
-                                <td>Pulse (beats/min)</td>
-                                <td>
-                                    98
-                                </td>
-                                <td>SpO2 (%)</td>
-                                <td>
-                                    97
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Time 3:00 pm</td>
-                                <td>Temperature: (deg C) </td>
-                                <td>
-                                 37.2
-                                </td>
-                                <td>BP  (mm Hg)</td>
-                                <td>
-                                110/70 
-                                </td>
-                                <td>Pulse (beats/min)</td>
-                                <td>
-                                    98
-                                </td>
-                                <td>SpO2 (%)</td>
-                                <td>
-                                    97
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Time 6:00 pm</td>
-                                <td>Temperature: (deg C) </td>
-                                <td>
-                                 37.2
-                                </td>
-                                <td>BP  (mm Hg)</td>
-                                <td>
-                                110/70 
-                                </td>
-                                <td>Pulse (beats/min)</td>
-                                <td>
-                                    98
-                                </td>
-                                <td>SpO2 (%)</td>
-                                <td>
-                                    97
-                                </td>
-                            </tr>
-                        </table>
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th>
-                                GOQii Smart Watch
-                                </th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Time 9:00 am</td>
-                                    <td>Temperature: (deg C) </td>
-                                    <td>
-                                     37.2
-                                    </td>
-                                    <td>BP  (mm Hg)</td>
-                                    <td>
-                                    110/70 
-                                    </td>
-                                    <td>Pulse (beats/min)</td>
-                                    <td>
-                                        98
-                                    </td>
-                                    <td>SpO2 (%)</td>
-                                    <td>
-                                        97
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Time 12:00 pm</td>
-                                    <td>Temperature: (deg C) </td>
-                                    <td>
-                                     37.2
-                                    </td>
-                                    <td>BP  (mm Hg)</td>
-                                    <td>
-                                    110/70 
-                                    </td>
-                                    <td>Pulse (beats/min)</td>
-                                    <td>
-                                        98
-                                    </td>
-                                    <td>SpO2 (%)</td>
-                                    <td>
-                                        97
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Time 3:00 pm</td>
-                                    <td>Temperature: (deg C) </td>
-                                    <td>
-                                     37.2
-                                    </td>
-                                    <td>BP  (mm Hg)</td>
-                                    <td>
-                                    110/70 
-                                    </td>
-                                    <td>Pulse (beats/min)</td>
-                                    <td>
-                                        98
-                                    </td>
-                                    <td>SpO2 (%)</td>
-                                    <td>
-                                        97
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Time 6:00 pm</td>
-                                    <td>Temperature: (deg C) </td>
-                                    <td>
-                                     37.2
-                                    </td>
-                                    <td>BP  (mm Hg)</td>
-                                    <td>
-                                    110/70 
-                                    </td>
-                                    <td>Pulse (beats/min)</td>
-                                    <td>
-                                        98
-                                    </td>
-                                    <td>SpO2 (%)</td>
-                                    <td>
-                                        97
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div style="margin-top: 20%;">
+                        {% if info %}
+                            <h4>Gender: {{ info.gender }}</h4>
+                            <h4>Age: {{ info.age }}</h4>
+                            <h4>Religion: {{ info.religion }}</h4>
+                            <h4>Occupation: {{ info.occupation }}</h4>
+                            <h4>Date of Admission: {{ info.date_admission }}</h4>
+                            <h4>Date of Covid + Test: {{ info.date_test }}</h4>
+                            <h4>Date of wearable device: {{ info.date_device }}</h4>
+                            <h4>Date of discharge: {{ info.date_discharge }}</h4>
+                        {% endif %}
                     </div>
+
+                        <div>
+                            <h4>Device Code: {{ device_code }}</h4>
+                        </div>
+                        {% for d in l_device %}
+                            <div>
+                                <h4>Day Number of Reading: {{ d[0].currentDayNum }}</h4>
+                            </div>
+                            <div>
+                                <h4>Date of Reading: {{ d[1].currentDate }}</h4>
+                            </div>
+                            <div>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                            GOQII Device
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                            <tr>
+                                                <td> 9:00 am</td>
+                                                <td>Temperature (deg C)</td>
+                                                <td>
+                                                    
+                                                <h4>{{ d[0].temperature }}</h4>
+                                                    
+                                                </td>
+                                                <td>BP High (mm Hg)</td>
+                                                <td>
+                                                    
+                                                <h4> {{ d[0].bpLow }}</h4>
+                                                    
+                                                </td> 
+                                                <td>BP Low  (mm Hg)</td>
+                                                <td>
+                                                    
+                                                <h4>{{ d[0].bpHigh }}</h4>
+                                                    
+                                                </td>
+                                                <td>Pulse (beats/min)</td>
+                                                <td>
+                                                    
+                                                <h4>  {{ d[0].pulse }}</h4>
+                                                    
+                                                </td>
+                                                <td>SpO2 (%)</td>
+                                                <td>
+                                                    
+                                                <h4> {{ d[0].spo2 }}</h4>
+                                                    
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td> 12:00 pm</td>
+                                                <td>Temperature (deg C)</td>
+                                                <td>
+                                                    <h4>{{ d[1].temperature }}</h4>
+                                                </td>
+                                                <td>BP High (mm Hg)</td>
+                                                <td>
+                                                <h4> {{ d[1].bpLow }}</h4>
+                                                </td> 
+                                                <td>BP Low  (mm Hg)</td>
+                                                <td>
+                                                    <h4>{{ d[1].bpHigh }}</h4>
+                                                </td>
+                                                <td>Pulse (beats/min)</td>
+                                                <td>
+                                                <h4>  {{ d[1].pulse }}</h4>
+                                                </td>
+                                                <td>SpO2 (%)</td>
+                                                <td>
+                                                <h4> {{ d[1].spo2 }}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td> 3:00 pm</td>
+                                                <td>Temperature (deg C)</td>
+                                                <td>
+                                                    <h4>{{ d[2].temperature }}</h4>
+                                                </td>
+                                                <td>BP High (mm Hg)</td>
+                                                <td>
+                                                <h4> {{ d[2].bpLow }}</h4>
+                                                </td> 
+                                                <td>BP Low  (mm Hg)</td>
+                                                <td>
+                                                    <h4>{{ d[2].bpHigh }}</h4>
+                                                </td>
+                                                <td>Pulse (beats/min)</td>
+                                                <td>
+                                                <h4>  {{ d[2].pulse }}</h4>
+                                                </td>
+                                                <td>SpO2 (%)</td>
+                                                <td>
+                                                <h4> {{ d[3].spo2 }}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td> 6:00 pm</td>
+                                                <td>Temperature (deg C)</td>
+                                                <td>
+                                                    <h4>{{ d[3].temperature }}</h4>
+                                                </td>
+                                                <td>BP High (mm Hg)</td>
+                                                <td>
+                                                <h4> {{ d[3].bpLow }}</h4>
+                                                </td> 
+                                                <td>BP Low  (mm Hg)</td>
+                                                <td>
+                                                    <h4>{{ d[3].bpHigh }}</h4>
+                                                </td>
+                                                <td>Pulse (beats/min)</td>
+                                                <td>
+                                                <h4>  {{ d[3].pulse }}</h4>
+                                                </td>
+                                                <td>SpO2 (%)</td>
+                                                <td>
+                                                <h4> {{ d[3].spo2 }}
+                                                </td>
+                                            </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        {% endfor %}
+                        {% for l in l_hosp %}
+                            <div>
+                                <div>
+                                    <h4>Day Number of Reading: {{ l[1].currentDayNum }}</h4>
+                                </div>
+                                <div>
+                                    <h4>Date of Reading: {{ l[1].currentDate }}</h4>
+                                </div>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                            Hospital Reading
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td> 9:00 am</td>
+                                                <td>Temperature (deg C)</td>
+                                                <td>
+
+                                                    <h4>{{ l[0].temperature }}</h4>
+                                                </td>
+                                                <td>BP High (mm Hg)</td>
+                                                <td>
+                                                <h4> {{ l[0].bpLow }}</h4>
+                                                </td> 
+                                                <td>BP Low  (mm Hg)</td>
+                                                <td>
+                                                    <h4>{{ l[0].bpHigh }}</h4>
+                                                </td>
+                                                <td>Pulse (beats/min)</td>
+                                                <td>
+                                                <h4>  {{ l[0].pulse }}</h4>
+                                                </td>
+                                                <td>SpO2 (%)</td>
+                                                <td>
+                                                <h4> {{ l[0].spo2 }}
+                                                </td>
+                                        </tr>
+                                    
+                                        <tr>
+                                            <td> 12:00 pm</td>
+                                            <td>Temperature (deg C)</td>
+                                            <td>
+                                                <h4>{{ l[1].temperature }}</h4>
+                                            </td>
+                                            <td>BP High (mm Hg)</td>
+                                            <td>
+                                            <h4> {{ l[1].bpLow }}</h4>
+                                            </td> 
+                                            <td>BP Low  (mm Hg)</td>
+                                            <td>
+                                                <h4>{{ l[1].bpHigh }}</h4>
+                                            </td>
+                                            <td>Pulse (beats/min)</td>
+                                            <td>
+                                            <h4>  {{ l[1].pulse }}</h4>
+                                            </td>
+                                            <td>SpO2 (%)</td>
+                                            <td>
+                                            <h4> {{ l[1].spo2 }}
+                                            </td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td> 3:00 pm</td>
+                                            <td>Temperature (deg C)</td>
+                                            <td>
+                                                <h4>{{ l[2].temperature }}</h4>
+                                            </td>
+                                            <td>BP High (mm Hg)</td>
+                                            <td>
+                                            <h4> {{ l[2].bpLow }}</h4>
+                                            </td> 
+                                            <td>BP Low  (mm Hg)</td>
+                                            <td>
+                                                <h4>{{ l[2].bpHigh }}</h4>
+                                            </td>
+                                            <td>Pulse (beats/min)</td>
+                                            <td>
+                                            <h4>  {{ l[2].pulse }}</h4>
+                                            </td>
+                                            <td>SpO2 (%)</td>
+                                            <td>
+                                            <h4> {{ l[2].spo2 }}
+                                            </td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td> 6:00 pm</td>
+                                            <td>Temperature (deg C)</td>
+                                            <td>
+                                                <h4>{{ l[3].temperature }}</h4>
+                                            </td>
+                                            <td>BP High (mm Hg)</td>
+                                            <td>
+                                            <h4> {{ l[3].bpLow }}</h4>
+                                            </td> 
+                                            <td>BP Low  (mm Hg)</td>
+                                            <td>
+                                                <h4>{{ l[3].bpHigh }}</h4>
+                                            </td>
+                                            <td>Pulse (beats/min)</td>
+                                            <td>
+                                            <h4>  {{ l[3].pulse }}</h4>
+                                            </td>
+                                            <td>SpO2 (%)</td>
+                                            <td>
+                                            <h4> {{ l[3].spo2 }}
+                                            </td>
+                                        </tr>
+                                
+                                    </tbody>
+                                </table>
+                            </div>
+                        {% endfor %}
+                        
                     <div>
-                        <button class="primary-btn2 mt-20 text-uppercase" onclick="toggleHideShow()">Add Data For Patient with code : ....<span class="lnr lnr-arrow-right"></span></button>
+                        <button class="primary-btn2 mt-20 text-uppercase" onclick="toggleHideShow()">Add Data For Patient with code : {{ device_code }} <span class="lnr lnr-arrow-right"></span></button>
                     </div>                      
                     <div id="myDIV" style="display: none;">
-                            <form >
-                                    <div style="padding: 2 em;">
-                                        Date when the reading is taken <input type = "date" name = "date" required />
-                                    </div>
-                                    <div>
-                                        <table class="table">
-                                            <thead>
-                                            <tr>
-                                                <th>
-                                                Hospital Equipment
-                                                </th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr>
-                                                <td>Time 9:00 am</td>
-                                                <td>Temperature (deg C)</td>
-                                                <td>
-                                                <input type="number" step = "0.1" style="width: 50px; padding: 1px" value="37.2"> 
-                                                </td>
-                                                <td>BP  (mm Hg)</td>
-                                                <td>
-                                                <input type="text" style="width: 60px; padding: 1px" value=""> 
-                                                </td>
-                                                <td>Pulse (beats/min)</td>
-                                                <td>
-                                                <input type="number" style="width: 45px; padding: 1px" value="0"> 
-                                                </td>
-                                                <td>SpO2 (%)</td>
-                                                <td>
-                                                <input type="number" style="width: 45px; padding: 1px" value="96"> 
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Time 12:00 pm</td>
-                                                <td>Temperature (deg C)</td>
-                                                <td>
-                                                <input type="number" step = "0.1" style="width: 50px; padding: 1px" value="37.2"> 
-                                                </td>
-                                                <td>BP  (mm Hg)</td>
-                                                <td>
-                                                <input type="text" style="width: 60px; padding: 1px" value=""> 
-                                                </td>
-                                                <td>Pulse (beats/min)</td>
-                                                <td>
-                                                <input type="number" style="width: 45px; padding: 1px" value="0"> 
-                                                </td>
-                                                <td>SpO2 (%)</td>
-                                                <td>
-                                                <input type="number" style="width: 45px; padding: 1px" value="96"> 
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                        <table class="table">
-                                            <thead>
-                                            <tr>
-                                                <th>
-                                                GOQii Smart Watch
-                                                </th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>Time 9:00 am</td>
-                                                    <td>Temperature (deg C)</td>
-                                                    <td>
-                                                    <input type="number" step = "0.1" style="width: 50px; padding: 1px" value="37.2"> 
-                                                    </td>
-                                                    <td>BP  (mm Hg)</td>
-                                                    <td>
-                                                    <input type="text" style="width: 60px; padding: 1px" value=""> 
-                                                    </td>
-                                                    <td>Pulse (beats/min)</td>
-                                                    <td>
-                                                    <input type="number" style="width: 45px; padding: 1px" value="0"> 
-                                                    </td>
-                                                    <td>SpO2 (%)</td>
-                                                    <td>
-                                                    <input type="number" style="width: 45px; padding: 1px" value="96"> 
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Time 9:00 am</td>
-                                                    <td>Temperature (deg C)</td>
-                                                    <td>
-                                                    <input type="number" step = "0.1" style="width: 50px; padding: 1px" value="37.2"> 
-                                                    </td>
-                                                    <td>BP  (mm Hg)</td>
-                                                    <td>
-                                                    <input type="text" style="width: 60px; padding: 1px" value=""> 
-                                                    </td>
-                                                    <td>Pulse (beats/min)</td>
-                                                    <td>
-                                                    <input type="number" style="width: 45px; padding: 1px" value="0"> 
-                                                    </td>
-                                                    <td>SpO2 (%)</td>
-                                                    <td>
-                                                    <input type="number" style="width: 45px; padding: 1px" value="96"> 
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                            </form>
-                        </div>
+                        <form method = "POST" action="" name = "goqiiReadingForm">
+                            <div style="padding: 2 em;">
+                                Date when the reading is taken <input type = "date" name = "currentDate" required />
+                            </div>
+                            <div style="padding: 2 em;">
+                                Current Day Number <input type = "number" name = "currentDayNum" required />
+                            </div>
+                            <div>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                            GOQII Device
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td> 9:00 am</td>
+                                            <td>Temperature (deg C)</td>
+                                            <td>
+                                            <input type="number" step = "0.1" style="width: 50px; padding: 1px" name = "temperature9" > 
+                                            </td>
+                                            <td>BP High (mm Hg)</td>
+                                            <td>
+                                            <input type="text" style="width: 60px; padding: 1px" name ="bpHigh9"> 
+                                            <td>BP Low  (mm Hg)</td>
+                                            <td>
+                                            <input type="text" style="width: 60px; padding: 1px" name ="bpLow9"> 
+                                            </td>
+                                            <td>Pulse (beats/min)</td>
+                                            <td>
+                                            <input type="number" style="width: 45px; padding: 1px" name = "pulse9"> 
+                                            </td>
+                                            <td>SpO2 (%)</td>
+                                            <td>
+                                            <input type="number" style="width: 45px; padding: 1px" name = "spo29" > 
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td> 12:00 pm</td>
+                                            <td>Temperature (deg C)</td>
+                                            <td>
+                                            <input type="number" step = "0.1" style="width: 50px; padding: 1px" name = "temperature12" > 
+                                            </td>
+                                            <td>BP High (mm Hg)</td>
+                                            <td>
+                                            <input type="text" style="width: 60px; padding: 1px" name ="bpHigh12"> 
+                                            <td>BP Low  (mm Hg)</td>
+                                            <td>
+                                            <input type="text" style="width: 60px; padding: 1px" name ="bpLow12"> 
+                                            </td>
+                                            <td>Pulse (beats/min)</td>
+                                            <td>
+                                            <input type="number" style="width: 45px; padding: 1px" name = "pulse12"> 
+                                            </td>
+                                            <td>SpO2 (%)</td>
+                                            <td>
+                                            <input type="number" style="width: 45px; padding: 1px" name = "spo212" > 
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td> 3:00 pm</td>
+                                            <td>Temperature (deg C)</td>
+                                            <td>
+                                            <input type="number" step = "0.1" style="width: 50px; padding: 1px" name = "temperature3" > 
+                                            </td>
+                                            <td>BP High (mm Hg)</td>
+                                            <td>
+                                            <input type="text" style="width: 60px; padding: 1px" name ="bpHigh3"> 
+                                            <td>BP Low  (mm Hg)</td>
+                                            <td>
+                                            <input type="text" style="width: 60px; padding: 1px" name ="bpLow3"> 
+                                            </td>
+                                            <td>Pulse (beats/min)</td>
+                                            <td>
+                                            <input type="number" style="width: 45px; padding: 1px" name = "pulse3"> 
+                                            </td>
+                                            <td>SpO2 (%)</td>
+                                            <td>
+                                            <input type="number" style="width: 45px; padding: 1px" name = "spo23" > 
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td> 6:00 pm</td>
+                                            <td>Temperature (deg C)</td>
+                                            <td>
+                                            <input type="number" step = "0.1" style="width: 50px; padding: 1px" name = "temperature6" > 
+                                            </td>
+                                            <td>BP High (mm Hg)</td>
+                                            <td>
+                                            <input type="text" style="width: 60px; padding: 1px" name ="bpHigh6"> 
+                                            <td>BP Low  (mm Hg)</td>
+                                            <td>
+                                            <input type="text" style="width: 60px; padding: 1px" name ="bpLow6"> 
+                                            </td>
+                                            <td>Pulse (beats/min)</td>
+                                            <td>
+                                            <input type="number" style="width: 45px; padding: 1px" name = "pulse6"> 
+                                            </td>
+                                            <td>SpO2 (%)</td>
+                                            <td>
+                                            <input type="number" style="width: 45px; padding: 1px" name = "spo26" > 
+                                            </td>
+                                        </tr>
+                                
+                                    </tbody>
+                                </table>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                            HOSPITAL READING
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                        <!-- <input type="hidden" name="goqiiReadingForm" value="2"> -->
+
+                                        <tr>
+                                            <td> 9:00 am</td>
+                                            <td>Temperature (deg C)</td>
+                                            <td>
+                                            <input type="number" step = "0.1" style="width: 50px; padding: 1px" name = "temperature9goqii" > 
+                                            </td>
+                                            <td>BP High (mm Hg)</td>
+                                            <td>
+                                            <input type="text" style="width: 60px; padding: 1px" name ="bpHigh9goqii"> 
+                                            <td>BP Low  (mm Hg)</td>
+                                            <td>
+                                            <input type="text" style="width: 60px; padding: 1px" name ="bpLow9goqii"> 
+                                            </td>
+                                            <td>Pulse (beats/min)</td>
+                                            <td>
+                                            <input type="number" style="width: 45px; padding: 1px" name = "pulse9goqii"> 
+                                            </td>
+                                            <td>SpO2 (%)</td>
+                                            <td>
+                                            <input type="number" style="width: 45px; padding: 1px" name = "spo29goqii" > 
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td> 12:00 pm</td>
+                                            <td>Temperature (deg C)</td>
+                                            <td>
+                                            <input type="number" step = "0.1" style="width: 50px; padding: 1px" name = "temperature12goqii" > 
+                                            </td>
+                                            <td>BP High (mm Hg)</td>
+                                            <td>
+                                            <input type="text" style="width: 60px; padding: 1px" name ="bpHigh12goqii"> 
+                                            <td>BP Low  (mm Hg)</td>
+                                            <td>
+                                            <input type="text" style="width: 60px; padding: 1px" name ="bpLow12goqii"> 
+                                            </td>
+                                            <td>Pulse (beats/min)</td>
+                                            <td>
+                                            <input type="number" style="width: 45px; padding: 1px" name = "pulse12goqii"> 
+                                            </td>
+                                            <td>SpO2 (%)</td>
+                                            <td>
+                                            <input type="number" style="width: 45px; padding: 1px" name = "spo212goqii" > 
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td> 3:00 pm</td>
+                                            <td>Temperature (deg C)</td>
+                                            <td>
+                                            <input type="number" step = "0.1" style="width: 50px; padding: 1px" name = "temperature3goqii" > 
+                                            </td>
+                                            <td>BP High (mm Hg)</td>
+                                            <td>
+                                            <input type="text" style="width: 60px; padding: 1px" name ="bpHigh3goqii"> 
+                                            <td>BP Low  (mm Hg)</td>
+                                            <td>
+                                            <input type="text" style="width: 60px; padding: 1px" name ="bpLow3goqii"> 
+                                            </td>
+                                            <td>Pulse (beats/min)</td>
+                                            <td>
+                                            <input type="number" style="width: 45px; padding: 1px" name = "pulse3goqii"> 
+                                            </td>
+                                            <td>SpO2 (%)</td>
+                                            <td>
+                                            <input type="number" style="width: 45px; padding: 1px" name = "spo23goqii" > 
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td> 6:00 pm</td>
+                                            <td>Temperature (deg C)</td>
+                                            <td>
+                                            <input type="number" step = "0.1" style="width: 50px; padding: 1px" name = "temperature6goqii" > 
+                                            </td>
+                                            <td>BP High (mm Hg)</td>
+                                            <td>
+                                            <input type="text" style="width: 60px; padding: 1px" name ="bpHigh6goqii"> 
+                                            <td>BP Low  (mm Hg)</td>
+                                            <td>
+                                            <input type="text" style="width: 60px; padding: 1px" name ="bpLow6goqii"> 
+                                            </td>
+                                            <td>Pulse (beats/min)</td>
+                                            <td>
+                                            <input type="number" style="width: 45px; padding: 1px" name = "pulse6goqii"> 
+                                            </td>
+                                            <td>SpO2 (%)</td>
+                                            <td>
+                                            <input type="number" style="width: 45px; padding: 1px" name = "spo26goqii" > 
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <button type="submit" > 
+                                    Save 
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
+        
     </section>
     <script>
         function toggleHideShow() {

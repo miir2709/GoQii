@@ -1,0 +1,18 @@
+{% extends"layout.html" %}
+    {% block content %}
+    <section class="banner-area relative">
+        <div class="container">
+            <div class="row fullscreen align-items-center justify-content-center">
+                <div class="banner-content col-lg-6 col-md-24">
+                    <form method="POST">
+                        <div>
+                            Device Code: <input type = "text" name = "dcode" placeholder='Enter Device Code' required/>
+                        </div>
+                        <br>
+                        <input type="submit" value="Submit">
+                    </form> 
+                </div>
+            </div>
+        </div>
+    </section>
+ {% endblock %}
