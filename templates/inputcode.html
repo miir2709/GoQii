@@ -1,0 +1,44 @@
+{% extends"layout.html" %}
+    {% block content %}
+    <section class="banner-area relative">
+        <div class="container">
+            <div class="row fullscreen align-items-center justify-content-center">
+                <div class="banner-content col-lg-6 col-md-24">
+                    <form method="POST">
+                        <div>
+                            <input type = 'hidden' name='change_device' value='0'>
+                            Device Code: <input type = "text" name = "dcode" placeholder='Enter Device Code' required/>
+                        </div>
+                        <br>
+                        <input type="submit" value="Submit">
+                    </form> 
+                </div>
+    
+                <div class="banner-content col-lg-6 col-md-24">
+                    <button onclick="displayform()"> Change Device Code? </button>
+                 </div>
+            </div>
+        </div>
+        <div id="demo" class="container" style="visibility: hidden;">
+                <div class="banner-content col-lg-6 col-md-24">
+                    <form method="POST">
+                        <div>
+                            <input type='hidden' name='change_device' value="1">
+                            Current Device Code: <input type = 'text' name='currentDeviceCode' placeholder= "Current Device Code"> <br>
+                            New Device Code<input type = 'text' name='newDeviceCode' placeholder= "New Device Code"> <br>
+                           <button type='submit'>Change Code</button>
+                        </div>
+                        <br>
+                    </form> 
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function displayform() {
+          document.getElementById("demo").style.visibility = "visible";
+        }
+    </script>
+    
+ {% endblock %}
