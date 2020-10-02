@@ -146,12 +146,10 @@ def existingPatient(device_code):
         cursor.execute('INSERT INTO hospitalReading VALUES (%s, %s, %s, %s, %s, %s,  %s, %s, %s)', (patient[0]['patient_id'], currentDayNum, currentDate, temperature6goqii, pulse6goqii, bpHigh6goqii, bpLow6goqii, spo26goqii, "6"))
         mysql.connection.commit()
         
-    # WRITE CODE ENDS HERE
-    # lists to pass to html file
-    temperaturePass = []
+    # WRITE CODE ENDS HERE  
 
     # READ CODE STARTS
-    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    
 # SELECT * FROM DEVICE WHERE device_id = {device_code}
 # device_id, patient_id = 1
 # devices = SELECT * FROM DEVICE WHERE patient_id = patient_id
@@ -163,6 +161,9 @@ def existingPatient(device_code):
 #    list.append(d['device_id'])
 # list = [91, 11, 100, 200]
 # device_id IN {list}
+
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+
     dev = cursor.execute(f'SELECT * FROM device WHERE device_id = {device_code}')
     if (dev > 0):
         dev = cursor.fetchall()
@@ -181,17 +182,7 @@ def existingPatient(device_code):
     deviceReading9 = cursor.execute(f'SELECT * FROM deviceReading WHERE deviceId IN {listDevice} and timeOfReading = 9 ')
     if deviceReading9 > 0:
         deviceReading9 = cursor.fetchall()
-    # for device in deviceReading9:
-    #     for key, value in device.items():
-    #         # for k in list(device.keys()):
-    #         #     if k == 'timeOfReading':
-    #         if key == 'spo2':
-    #             print(f'device reading {value}')
-                #print(device)
-    # print(f'type of device reading: {type(deviceReading9[0])}')
-    # print(deviceReading9[0])
     
-
     hospitalReading9 = cursor.execute(f"SELECT * FROM hospitalReading WHERE patientId = {patient[0]['patient_id']} and timeOfReading = 9 ")
     if hospitalReading9 > 0:
         hospitalReading9 = cursor.fetchall()
