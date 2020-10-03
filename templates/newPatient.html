@@ -4,9 +4,16 @@
         <div class="container">
             <div class="row fullscreen align-items-center justify-content-center">
                 <div class="banner-content col-lg-6 col-md-24">
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            {% for message in messages %}
+                                <p>{{message}}</p>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
                     <form method="POST">
                         <div>
-                            Device Code: <input type = "text" name = "code" placeholder='code' required/>
+                            Device Code: <input type = "text" name = "code" placeholder='code' autocomplete="off"  required >
                         </div>
                         <br>
                         <div>
@@ -21,13 +28,13 @@
                             </div>
                         </div>
                         <div>
-                            Religion: <input type="text" name = "religion" />
+                            Religion: <input type="text" name = "religion" autocomplete="off">
                         </div>
                         <div>
-                            Occupation: <input type="text" name = "occupation" />
+                            Occupation: <input type="text" name = "occupation" autocomplete="off">
                         </div>
                         <div>
-                            Date of Admission: <input type="date" name = "date_of_admission" required/>
+                            Date of Admission: <input type="date" name = "date_of_admission" required >
                         </div>
                         <div>
                             Date of +ve COVID-19 Test: <input type="date" name = "date_of_test" required/>
