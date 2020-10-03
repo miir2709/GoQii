@@ -179,52 +179,52 @@ def existingPatient(device_code):
     listDevice = tuple(listDevice)
     print(listDevice)
     # 9 am Read
-    deviceReading9 = cursor.execute(f'SELECT * FROM deviceReading WHERE deviceId IN {listDevice} and timeOfReading = 9 ')
+    deviceReading9 = cursor.execute(f'SELECT * FROM deviceReading WHERE deviceId IN {listDevice} and timeOfReading = 9')
     if deviceReading9 > 0:
         deviceReading9 = cursor.fetchall()
     
-    hospitalReading9 = cursor.execute(f"SELECT * FROM hospitalReading WHERE patientId = {patient[0]['patient_id']} and timeOfReading = 9 ")
+    hospitalReading9 = cursor.execute(f"SELECT * FROM hospitalReading WHERE patientId = {patient[0]['patient_id']} and timeOfReading = 9")
     if hospitalReading9 > 0:
         hospitalReading9 = cursor.fetchall()
     # print(hospitalReading9)
 
     # 12 pm
-    deviceReading12 = cursor.execute(f'SELECT * FROM deviceReading WHERE deviceId IN {listDevice} and timeOfReading = 12 ')
+    deviceReading12 = cursor.execute(f'SELECT * FROM deviceReading WHERE deviceId IN {listDevice} and timeOfReading = 12')
     if deviceReading12 > 0:
         deviceReading12 = cursor.fetchall()
     # print(deviceReading9)
-    hospitalReading12 = cursor.execute(f"SELECT * FROM hospitalReading WHERE patientId = {patient[0]['patient_id']} and timeOfReading = 12 ")
+    hospitalReading12 = cursor.execute(f"SELECT * FROM hospitalReading WHERE patientId = {patient[0]['patient_id']} and timeOfReading = 12")
     if hospitalReading12 > 0:
         hospitalReading12 = cursor.fetchall()
     
      # 3 pm
-    deviceReading3 = cursor.execute(f'SELECT * FROM deviceReading WHERE deviceId IN {listDevice} and timeOfReading = 3 ')
+    deviceReading3 = cursor.execute(f'SELECT * FROM deviceReading WHERE deviceId IN {listDevice} and timeOfReading = 3')
     if deviceReading3 > 0:
         deviceReading3 = cursor.fetchall()
     # print(f'device reading {deviceReading9}')
     # print(f'type of device reading: {type(deviceReading9)}')
-    hospitalReading3 = cursor.execute(f"SELECT * FROM hospitalReading WHERE patientId = {patient[0]['patient_id']} and timeOfReading = 3 ")
+    hospitalReading3 = cursor.execute(f"SELECT * FROM hospitalReading WHERE patientId = {patient[0]['patient_id']} and timeOfReading = 3")
     if hospitalReading3 > 0:
         hospitalReading3 = cursor.fetchall()
 
      # 6 pm
-    deviceReading6 = cursor.execute(f'SELECT * FROM deviceReading WHERE deviceId IN {listDevice} and timeOfReading = 6 ')
+    deviceReading6 = cursor.execute(f'SELECT * FROM deviceReading WHERE deviceId IN {listDevice} and timeOfReading = 6')
     if deviceReading6 > 0:
         deviceReading6 = cursor.fetchall()
       
-    hospitalReading6 = cursor.execute(f"SELECT * FROM hospitalReading WHERE patientId = {patient[0]['patient_id']} and timeOfReading = 6 ")
+    hospitalReading6 = cursor.execute(f"SELECT * FROM hospitalReading WHERE patientId = {patient[0]['patient_id']} and timeOfReading = 6")
     if hospitalReading6 > 0:
         hospitalReading6 = cursor.fetchall()
 
 
     # print the current day number
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    currentDayNum = cursor.execute(f"SELECT currentDayNum FROM hospitalReading WHERE patientId = {patient[0]['patient_id']} ")
+    currentDayNum = cursor.execute(f"SELECT currentDayNum FROM hospitalReading WHERE patientId = {patient[0]['patient_id']}")
     if currentDayNum > 0:
         currentDayNum = cursor.fetchall()
 
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    currentDate = cursor.execute(f"SELECT currentDate FROM hospitalReading WHERE patientId = {patient[0]['patient_id']} ")
+    currentDate = cursor.execute(f"SELECT currentDate FROM hospitalReading WHERE patientId = {patient[0]['patient_id']}")
     if currentDate > 0:
         currentDate = cursor.fetchall()
     # print(currentDate)
