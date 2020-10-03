@@ -68,91 +68,98 @@ def existingPatient(device_code):
     if patient_info > 0:
         patient_info = cursor.fetchall()
     # print(patient_info)
-
+    flag = 1
     # WRITE CODE
     if request.method == 'POST' :
         currentDayNum = request.form['currentDayNum']
+        currentDayNum_temp = request.form['currentDayNum']
         currentDate = request.form['currentDate']
-        
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        temp = cursor.execute(f"SELECT * FROM deviceReading WHERE currentDayNum = {currentDayNum}")
+        if temp > 0:
+            temp = cursor.fetchall()
         # 9 am 
-        temperature9 = request.form['temperature9']
-        pulse9 = request.form['pulse9']
-        bpHigh9 = request.form['bpHigh9']
-        bpLow9 = request.form['bpLow9']
-        spo29 = request.form['spo29']
-        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('INSERT INTO deviceReading VALUES (%s, %s, %s, %s, %s, %s,  %s, %s, %s)', (device_code, currentDayNum, currentDate, temperature9, pulse9, bpHigh9, bpLow9, spo29, "9"))
-        mysql.connection.commit()
-        
-        # 12 pm
-        temperature12 = request.form['temperature12']
-        pulse12 = request.form['pulse12']
-        bpHigh12 = request.form['bpHigh12']
-        bpLow12 = request.form['bpLow12']
-        spo212 = request.form['spo212']
-        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('INSERT INTO deviceReading VALUES (%s, %s, %s, %s, %s, %s,  %s, %s, %s)', (device_code, currentDayNum, currentDate, temperature12, pulse12, bpHigh12, bpLow12, spo212, "12"))
-        mysql.connection.commit()
-        
-        # 3 pm
-        temperature3 = request.form['temperature3']
-        pulse3 = request.form['pulse3']
-        bpHigh3 = request.form['bpHigh3']
-        bpLow3 = request.form['bpLow3']
-        spo23 = request.form['spo23']
-        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('INSERT INTO deviceReading VALUES (%s, %s, %s, %s, %s, %s,  %s, %s, %s)', (device_code, currentDayNum, currentDate, temperature3, pulse3, bpHigh3, bpLow3, spo23, "3"))
-        mysql.connection.commit()
-        
-        # 6 pm
-        temperature6 = request.form['temperature6']
-        pulse6 = request.form['pulse6']
-        bpHigh6 = request.form['bpHigh6']
-        bpLow6 = request.form['bpLow6']
-        spo26 = request.form['spo26']
-        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('INSERT INTO deviceReading VALUES (%s, %s, %s, %s, %s, %s,  %s, %s, %s)', (device_code, currentDayNum, currentDate, temperature6, pulse6, bpHigh6, bpLow6, spo26, "6"))
-        mysql.connection.commit()
-        
-        temperature9goqii = request.form['temperature9goqii']
-        pulse9goqii = request.form['pulse9goqii']
-        bpHigh9goqii = request.form['bpHigh9goqii']
-        bpLow9goqii = request.form['bpLow9goqii']
-        spo29goqii = request.form['spo29goqii']
-        cursorgoqii = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('INSERT INTO hospitalReading VALUES (%s, %s, %s, %s, %s, %s,  %s, %s, %s)', (patient[0]['patient_id'], currentDayNum, currentDate, temperature9goqii, pulse9goqii, bpHigh9goqii, bpLow9goqii, spo29goqii, "9"))
-        mysql.connection.commit()
-        
-        # 12 pm
-        temperature12goqii = request.form['temperature12goqii']
-        pulse12goqii = request.form['pulse12goqii']
-        bpHigh12goqii = request.form['bpHigh12goqii']
-        bpLow12goqii = request.form['bpLow12goqii']
-        spo212goqii = request.form['spo212goqii']
-        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('INSERT INTO hospitalReading VALUES (%s, %s, %s, %s, %s, %s,  %s, %s, %s)', (patient[0]['patient_id'], currentDayNum, currentDate, temperature12goqii, pulse12goqii, bpHigh12goqii, bpLow12goqii, spo212goqii, "12"))
-        mysql.connection.commit()
-        
-        # 3 pm
-        temperature3goqii = request.form['temperature3goqii']
-        pulse3goqii = request.form['pulse3goqii']
-        bpHigh3goqii = request.form['bpHigh3goqii']
-        bpLow3goqii = request.form['bpLow3goqii']
-        spo23goqii = request.form['spo23goqii']
-        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('INSERT INTO hospitalReading VALUES (%s, %s, %s, %s, %s, %s,  %s, %s, %s)', (patient[0]['patient_id'], currentDayNum, currentDate, temperature3goqii, pulse3goqii, bpHigh3goqii, bpLow3goqii, spo23goqii, "3"))
-        mysql.connection.commit()
-        
-        # 6 pm
-        temperature6goqii = request.form['temperature6goqii']
-        pulse6goqii = request.form['pulse6goqii']
-        bpHigh6goqii = request.form['bpHigh6goqii']
-        bpLow6goqii = request.form['bpLow6goqii']
-        spo26goqii = request.form['spo26goqii']
-        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('INSERT INTO hospitalReading VALUES (%s, %s, %s, %s, %s, %s,  %s, %s, %s)', (patient[0]['patient_id'], currentDayNum, currentDate, temperature6goqii, pulse6goqii, bpHigh6goqii, bpLow6goqii, spo26goqii, "6"))
-        mysql.connection.commit()
-        
+
+        if temp == 0:
+            temperature9 = request.form['temperature9']
+            pulse9 = request.form['pulse9']
+            bpHigh9 = request.form['bpHigh9']
+            bpLow9 = request.form['bpLow9']
+            spo29 = request.form['spo29']
+            cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            cursor.execute('INSERT INTO deviceReading VALUES (%s, %s, %s, %s, %s, %s,  %s, %s, %s)', (device_code, currentDayNum, currentDate, temperature9, pulse9, bpHigh9, bpLow9, spo29, "9"))
+            mysql.connection.commit()
+            
+            # 12 pm
+            temperature12 = request.form['temperature12']
+            pulse12 = request.form['pulse12']
+            bpHigh12 = request.form['bpHigh12']
+            bpLow12 = request.form['bpLow12']
+            spo212 = request.form['spo212']
+            cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            cursor.execute('INSERT INTO deviceReading VALUES (%s, %s, %s, %s, %s, %s,  %s, %s, %s)', (device_code, currentDayNum, currentDate, temperature12, pulse12, bpHigh12, bpLow12, spo212, "12"))
+            mysql.connection.commit()
+            
+            # 3 pm
+            temperature3 = request.form['temperature3']
+            pulse3 = request.form['pulse3']
+            bpHigh3 = request.form['bpHigh3']
+            bpLow3 = request.form['bpLow3']
+            spo23 = request.form['spo23']
+            cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            cursor.execute('INSERT INTO deviceReading VALUES (%s, %s, %s, %s, %s, %s,  %s, %s, %s)', (device_code, currentDayNum, currentDate, temperature3, pulse3, bpHigh3, bpLow3, spo23, "3"))
+            mysql.connection.commit()
+            
+            # 6 pm
+            temperature6 = request.form['temperature6']
+            pulse6 = request.form['pulse6']
+            bpHigh6 = request.form['bpHigh6']
+            bpLow6 = request.form['bpLow6']
+            spo26 = request.form['spo26']
+            cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            cursor.execute('INSERT INTO deviceReading VALUES (%s, %s, %s, %s, %s, %s,  %s, %s, %s)', (device_code, currentDayNum, currentDate, temperature6, pulse6, bpHigh6, bpLow6, spo26, "6"))
+            mysql.connection.commit()
+            
+            temperature9goqii = request.form['temperature9goqii']
+            pulse9goqii = request.form['pulse9goqii']
+            bpHigh9goqii = request.form['bpHigh9goqii']
+            bpLow9goqii = request.form['bpLow9goqii']
+            spo29goqii = request.form['spo29goqii']
+            cursorgoqii = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            cursor.execute('INSERT INTO hospitalReading VALUES (%s, %s, %s, %s, %s, %s,  %s, %s, %s)', (patient[0]['patient_id'], currentDayNum, currentDate, temperature9goqii, pulse9goqii, bpHigh9goqii, bpLow9goqii, spo29goqii, "9"))
+            mysql.connection.commit()
+            
+            # 12 pm
+            temperature12goqii = request.form['temperature12goqii']
+            pulse12goqii = request.form['pulse12goqii']
+            bpHigh12goqii = request.form['bpHigh12goqii']
+            bpLow12goqii = request.form['bpLow12goqii']
+            spo212goqii = request.form['spo212goqii']
+            cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            cursor.execute('INSERT INTO hospitalReading VALUES (%s, %s, %s, %s, %s, %s,  %s, %s, %s)', (patient[0]['patient_id'], currentDayNum, currentDate, temperature12goqii, pulse12goqii, bpHigh12goqii, bpLow12goqii, spo212goqii, "12"))
+            mysql.connection.commit()
+            
+            # 3 pm
+            temperature3goqii = request.form['temperature3goqii']
+            pulse3goqii = request.form['pulse3goqii']
+            bpHigh3goqii = request.form['bpHigh3goqii']
+            bpLow3goqii = request.form['bpLow3goqii']
+            spo23goqii = request.form['spo23goqii']
+            cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            cursor.execute('INSERT INTO hospitalReading VALUES (%s, %s, %s, %s, %s, %s,  %s, %s, %s)', (patient[0]['patient_id'], currentDayNum, currentDate, temperature3goqii, pulse3goqii, bpHigh3goqii, bpLow3goqii, spo23goqii, "3"))
+            mysql.connection.commit()
+            
+            # 6 pm
+            temperature6goqii = request.form['temperature6goqii']
+            pulse6goqii = request.form['pulse6goqii']
+            bpHigh6goqii = request.form['bpHigh6goqii']
+            bpLow6goqii = request.form['bpLow6goqii']
+            spo26goqii = request.form['spo26goqii']
+            cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            cursor.execute('INSERT INTO hospitalReading VALUES (%s, %s, %s, %s, %s, %s,  %s, %s, %s)', (patient[0]['patient_id'], currentDayNum, currentDate, temperature6goqii, pulse6goqii, bpHigh6goqii, bpLow6goqii, spo26goqii, "6"))
+            mysql.connection.commit()
+        else: 
+            flag = 0
     # WRITE CODE ENDS HERE  
 
     # READ CODE STARTS
@@ -297,7 +304,16 @@ def existingPatient(device_code):
     #print(f'L:  {list1[0][0]}')
     #print(f'L:  {list1[1][0]}')
     # print(deviceReading9[0])
-    return render_template('existingPatient.html', title='Input Data', info=patient_info[0],
+    if flag == 0:
+        flash(f"Data for Day Number {currentDayNum_temp} exists", 'info')
+        return render_template('existingPatient.html', title='Input Data', info=patient_info[0],
+                            device_code=device_code, currentDayNum=currentDayNum, currentDate=currentDate,
+                            l_device = l_device, l_hosp = l_hosp,
+                            list1 = list1
+                            )
+    else:
+
+        return render_template('existingPatient.html', title='Input Data', info=patient_info[0],
                             device_code=device_code, currentDayNum=currentDayNum, currentDate=currentDate,
                             l_device = l_device, l_hosp = l_hosp,
                             list1 = list1
