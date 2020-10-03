@@ -37,7 +37,7 @@ def newPatient():
         temp = cursor.execute(f"SELECT * FROM DEVICE WHERE device_id = {device_code}")
         if temp > 0:
             temp = cursor.fetchall()
-        if len(temp) == 0:
+        if temp == 0:
             cursor.execute('INSERT INTO patient VALUES (NULL, %s, %s, %s,%s,%s,%s,%s,%s)', (gender, age, religion,occupation,date_admission,date_test,date_device,date_discharge))
             pat_id = cursor.execute('SELECT id FROM patient WHERE id = (SELECT LAST_INSERT_ID())')
             if pat_id > 0:
@@ -75,7 +75,7 @@ def existingPatient(device_code):
         currentDayNum_temp = request.form['currentDayNum']
         currentDate = request.form['currentDate']
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        temp = cursor.execute(f"SELECT * FROM deviceReading WHERE currentDayNum = {currentDayNum}")
+        temp = cursor.execute(f"SELECT * FROM deviceReading WHERE currentDayNum = {currentDayNum} and deviceId = {device_code}")
         if temp > 0:
             temp = cursor.fetchall()
         # 9 am 
