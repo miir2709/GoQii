@@ -34,7 +34,7 @@ def newPatient():
         date_device = request.form['date_of_device']
         date_discharge = request.form['date_of_discharge']
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        temp = cursor.execute(f"SELECT * FROM DEVICE WHERE device_id = {device_code}")
+        temp = cursor.execute(f"SELECT * FROM device WHERE device_id = {device_code}")
         if temp > 0:
             temp = cursor.fetchall()
         if temp == 0:
@@ -332,7 +332,7 @@ def entercode():
                 flash("Incorrect Device Code", "error")
                 return render_template('inputcode.html', title = 'Input Data')
             else:
-                temp = cursor.execute(f"SELECT device_id FROM DEVICE WHERE patient_id = {patient[0]['patient_id']}")
+                temp = cursor.execute(f"SELECT device_id FROM device WHERE patient_id = {patient[0]['patient_id']}")
                 if temp > 0:
                     temp = cursor.fetchall()
                 
@@ -371,7 +371,7 @@ def entercode():
                 flash("Use new device code", "info")
                 return render_template('inputcode.html', title = 'Input Data')
             else:
-                cursor.execute("INSERT INTO DEVICE VALUES (%s, %s)", (new_code, patient[0]['patient_id']))
+                cursor.execute("INSERT INTO device VALUES (%s, %s)", (new_code, patient[0]['patient_id']))
                 mysql.connection.commit()
                 return render_template('inputcode.html', title = 'Input Data')
 
@@ -380,4 +380,4 @@ def entercode():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0')
