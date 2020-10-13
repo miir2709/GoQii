@@ -3,62 +3,27 @@
     <section class="banner-area relative">
         <div class="container">
             <div class="row fullscreen align-items-center justify-content-center">
-                <div class="banner-content col-lg-6 col-md-12">
-                    <form method = 'POST' action = ''>
-                        {{ form.hidden_tag() }}
-                        <fieldset class = "form-group">
-                            <legend class="border-bottom mb-4">Login</legend>
-                                
-                                    <div class="form-group"> <!--email-->
-                                        {{ form.email.label(class = "form-control-label") }}
-
-                                        {% if form.email.errors %}
-                                                {{ form.email(class = "form-control form-control-lg is-invalid") }}
-                                                <div class= "invalid-feedback">
-                                                    {% for error in form.email.errors %}
-                                                        <span>{{ error }}</span>
-                                                    {% endfor %}
-                                                </div>
-                                            {% else %}
-                                                {{ form.email(class = "form-control form-control-lg") }}
-                                        {% endif %}                                   
-                                    </div>
-
-                                    <div class="form-group"> <!--password-->
-                                        {{ form.password.label(class = "form-control-label") }}
-
-                                            {% if form.password.errors %}
-                                                {{ form.password(class = "form-control form-control-lg is-invalid") }}
-                                                <div class= "invalid-feedback">
-                                                    {% for error in form.password.errors %}
-                                                        <span>{{ error }}</span>
-                                                    {% endfor %}
-                                                </div>
-                                            {% else %}
-                                                {{ form.password(class = "form-control form-control-lg") }}
-                                            {% endif %} 
-                                    </div>
-                                    <div class = "form-check">
-                                        {{ form.remember(class = "form-check-input") }}
-                                        {{ form.remember.label(class = "form-check-label") }}
-                                    </div>
-                        </fieldset>
-                            <div class = "form-group">
-                                {{ form.submit(class = "btn btn-outlin-info" ) }}
-                            </div>
-                            <small class = "text-muted ml-2">
-                                <a href="#">Forgot Password?</a>
-                            </small>
+                <div class="banner-content col-lg-6 col-md-24">
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            {% for message in messages %}
+                                <p>{{message}}</p>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                    <form method="POST">
+                        <div>
+                            Username: <input type = "text" name = "username" placeholder='Username' autocomplete="off"  required >
+                        </div>
+                        <br>
+                        <div>
+                            Password: <input type = "password" name = "passwd" placeholder='Password' autocomplete="off"  required >
+                        </div>
+                   
+                        <input type="submit" value="Submit">
                     </form> 
-                    <div class = "border-top pt-3">
-                        <small class = "text-muted">
-                           Need an account? <a class ="ml-2" href= "{{ url_for('register') }}">Register Now</a>
-                        </small>
-                    </div>
                 </div>
-                
             </div>
-            
         </div>
     </section>
  {% endblock %}
