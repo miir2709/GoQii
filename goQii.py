@@ -31,9 +31,9 @@ app.config['MYSQL_USER'] = "root"
 app.config['MYSQL_PASSWORD'] = "0000"
 app.config['MYSQL_DB'] = "goqii"
 mysql = MySQL(app)
-login_manager = LoginManager()
-login_manager.login_view = 'login'
-login_manager.init_app(app)
+#login_manager = LoginManager()
+#login_manager.login_view = 'login'
+#login_manager.init_app(app)
 
 
 # @login_manager.user_loader
@@ -41,7 +41,7 @@ login_manager.init_app(app)
 #     return User.get(user_id)
 
 @app.route('/home')
-@login_required
+#@login_required
 def home():
     """F."""
     return render_template('home.html', title='Home')
@@ -71,7 +71,7 @@ def login():
 
 
 @app.route('/Patient', methods=['GET', 'POST'])
-@login_required
+#@login_required
 def newPatient():
     """Fun for adding a new Patient from the Drive."""
     if request.method == 'POST' and request.form['download'] == '1':
@@ -114,7 +114,7 @@ def newPatient():
 
 @app.route('/existingPatient/<device_code>', methods=['GET', 'POST'])
 @app.route('/existingPatient', methods=['GET', 'POST'])
-@login_required
+#@login_required
 def existingPatient(device_code):
     """Fun for adding device and hospital data to Existing Patient day-wise."""
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
@@ -482,7 +482,7 @@ def existingPatient(device_code):
 
 
 @app.route('/entercode', methods=['GET', 'POST'])
-@login_required
+#@login_required
 def entercode():
     """Fun for entering device Code."""
     if request.method == 'POST':
