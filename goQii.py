@@ -74,7 +74,7 @@ def login():
 #@login_required
 def newPatient():
     """Fun for adding a new Patient from the Drive."""
-    if request.method == 'POST' and request.form['download'] == '1':
+    if request.method == 'POST':
         device_code = request.form['code']
         gender = request.form['gender']
         age = request.form['age']
