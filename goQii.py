@@ -465,6 +465,12 @@ def existingPatient(device_code):
     # end 13:45
 
 
+@app.route('/plots', methods=['GET'])
+def plots():
+    """Fun for entering device Code."""
+    return render_template('plots.html', title='Plots')
+
+
 @app.route('/entercode', methods=['GET', 'POST'])
 def entercode():
     """Fun for entering device Code."""
@@ -548,4 +554,6 @@ def disconnect_user():
 
 if __name__ == '__main__':
     app.config['SECRET_KEY'] = '3f4c4a5de0fa9b6394afd0e9e1c423ad'
-    app.run(debug=True, host='0.0.0.0')
+    # app.run(debug=True, host='0.0.0.0')
+    app.run(debug=True)
+
