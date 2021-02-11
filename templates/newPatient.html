@@ -1,6 +1,22 @@
-{% extends"layout.html" %}
+{% extends "layout.html" %}
+
+{% block cssfile %}
+<style>
+
+    .form-group{
+        display: flex;
+    }
+
+
+    h2{
+        color: black;
+    }
+    </style>
+
+{% endblock cssfile %}
+
     {% block content %}
-    <section class="banner-area relative">
+    <section class="banner-area relative" style="margin-top: 10%;">
         <div class="container">
             <div class="row fullscreen align-items-center justify-content-center">
                 <div class="banner-content col-lg-6 col-md-24">
@@ -11,44 +27,251 @@
                             {% endfor %}
                         {% endif %}
                     {% endwith %}
-                    <form method="POST">
-                        <div>
-                            Device Code: <input type = "text" name = "code" placeholder='code' autocomplete="off"  required >
-                        </div>
-                        <br>
-                        <div>
-                            <div>
-                                <input type="radio" id="male" name="gender" value="male">
-                                <label for="male">Male</label><br>
-                                <input type="radio" id="female" name="gender" value="female">
-                                <label for="female">Female</label><br>  
+                    <!--======================-->
+
+                    <form class="well form-horizontal" action=" " method="post"  id="contact_form">
+                        <fieldset>
+                        
+                        <!-- Form Name -->
+                        <h2 class="timepass text-center">Register New Patient</h2><br>
+                        
+                        <!-- Text input-->
+                        
+                        <div class="form-group" >
+                          <label class="col-md-4 control-label">Device Code</label>  
+                          <div class="col-md-4 inputGroupContainer" >
+                          <div class="input-group" style="width : 300px;">
+                          
+                          <input  name="code" placeholder="device code" class="form-control"  type="text">
                             </div>
-                            <div>
-                                Age: <input type="number" id="age" name="age" value="age" required/>
+                          </div>
+                        </div>
+                        
+                        <!-- Text input-->
+                        
+                        <div class="form-group" >
+                            <label class="col-md-4 control-label" >Gender</label> 
+                            <div class="col-md-4 inputGroupContainer" >
+                                <div class="input-group" style="width: 300px;">
+                                    
+                                    <input type="radio" id="male" name="gender" value="male" style="margin-top: 2%; margin-right:1%;">
+                                    <label for="male" style="margin-right: 10%";>Male</label><br>
+                                    
+                                    <input type="radio" id="female" name="gender" value="female" style="margin-top: 2%; margin-right:1%;">
+                                    <label for="female">Female</label>
+
+                                </div>
                             </div>
                         </div>
-                        <div>
-                            Religion: <input type="text" name = "religion" autocomplete="off">
+                        
+                          
+                        <!-- Text input-->
+                        
+                        <div class="form-group" >
+                          <label class="col-md-4 control-label">Age</label>  
+                          <div class="col-md-4 inputGroupContainer" >
+                          <div class="input-group" style="width: 300px;">
+                          
+                          <input  name="age" placeholder="Age" class="form-control"  type="number">
+                            </div>
+                          </div>
                         </div>
-                        <div>
-                            Occupation: <input type="text" name = "occupation" autocomplete="off">
+                        
+                        <!-- Text input-->
+                        
+                        <div class="form-group" >
+                          <label class="col-md-4 control-label" >Religion</label> 
+                            <div class="col-md-4 inputGroupContainer" >
+                            <div class="input-group" style="width: 300px;">
+                          <!--  -->
+                          <input name="religion" placeholder="Religion" class="form-control"  type="text">
+                            </div>
+                          </div>
                         </div>
-                        <div>
-                            Date of Admission: <input type="date" name = "date_of_admission" required >
+                        
+                        <!-- Text input-->
+                        
+                        <div class="form-group"  >
+                          <label class="col-md-4 control-label" >Occupation</label> 
+                            <div class="col-md-4 inputGroupContainer" >
+                            <div class="input-group" style="width: 300px;">
+                          
+                          <input name="occupation" placeholder="Occupation" class="form-control"  type="text">
+                            </div>
+                          </div>
                         </div>
-                        <div>
-                            Date of +ve COVID-19 Test: <input type="date" name = "date_of_test" required/>
+                        
+                        <!-- Text input-->
+                        <div class="form-group" >
+                          <label class="col-md-4 control-label">Date of Admission</label>  
+                            <div class="col-md-4 inputGroupContainer" >
+                            <div class="input-group" style="width: 300px;">
+                                
+                          <input name="date_of_admission" placeholder="Date of Admission" class="form-control"  type="date">
+                            </div>
+                          </div>
                         </div>
-                        <div>
-                            Date of start of wearable device: <input type="date" name = "date_of_device" required/>
+                        
+                        
+                        <!-- Text input-->
+                               
+                        <div class="form-group" >
+                          <label class="col-md-4 control-label">Date of Covid Positive Test</label>  
+                            <div class="col-md-4 inputGroupContainer">
+                            <div class="input-group" style="width: 300px;">
+                                
+                          <input name="date_of_test" placeholder="Date of Covid Positive Test" class="form-control" type="date" style="width: 300px;"> 
+                            </div>
+                          </div>
                         </div>
-                        <div>
-                            Date of discharge: <input type="date" name = "date_of_discharge" />
+                        <!-- Text input-->
+        
+                        <div class="form-group" >
+                            <label class="col-md-4 control-label">Date of start of wearable device</label>  
+                                <div class="col-md-4 inputGroupContainer" >
+                                <div class="input-group" style="width: 300px;">
+                                    
+                            <input name="date_of_device" placeholder="(639)" class="form-control" type="date" style="width: 300px;">
+                                </div>
+                            </div>
+                            </div>
+                               
+                        <div class="form-group" >
+                            <label class="col-md-4 control-label">Date of Discharge</label>  
+                              <div class="col-md-4 inputGroupContainer" >
+                              <div class="input-group" style="width: 300px;">
+                                  
+                            <input name="date_of_discharge" placeholder="Date of Discharge" class="form-control" type="date" style="width: 300px;">
+                              </div>
+                            </div>
+                          </div>
+                        <!-- Button -->
+                        <div class="form-group" >
+                          <label class="col-md-4 control-label"></label>
+                          <div class="col-md-4"><br>
+                            <button type="submit" class="btn btn-dark" >SUBMIT 
+                            </button>
+                          </div>
                         </div>
-                        <input type="submit" value="Submit">
-                    </form> 
+                        
+                        </fieldset>
+                        </form>
+ 
                 </div>
             </div>
         </div>
     </section>
+    
+    <script>
+            $(document).ready(function() {
+            $('#contact_form').bootstrapValidator({
+            // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                first_name: {
+                    validators: {
+                            stringLength: {
+                            min: 1,
+                        },
+                            notEmpty: {
+                            message: 'Please enter your First Name'
+                        }
+                    }
+                },
+                    last_name: {
+                    validators: {
+                            stringLength: {
+                            min: 2,
+                        },
+                        notEmpty: {
+                            message: 'Please enter your Last Name'
+                        }
+                    }
+                },
+                    user_name: {
+                    validators: {
+                            stringLength: {
+                            min: 8,
+                        },
+                        notEmpty: {
+                            message: 'Please enter your Username'
+                        }
+                    }
+                },
+                    user_password: {
+                    validators: {
+                            stringLength: {
+                            min: 8,
+                        },
+                        notEmpty: {
+                            message: 'Please enter your Password'
+                        }
+                    }
+                },
+                confirm_password: {
+                    validators: {
+                            stringLength: {
+                            min: 8,
+                        },
+                        notEmpty: {
+                            message: 'Please confirm your Password'
+                        }
+                    }
+                },
+                email: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Please enter your Email Address'
+                        },
+                        emailAddress: {
+                            message: 'Please enter a valid Email Address'
+                        }
+                    }
+                },
+                contact_no: {
+                    validators: {
+                        stringLength: {
+                            min: 12, 
+                            max: 12,
+                        notEmpty: {
+                            message: 'Please enter your Contact No.'
+                            }
+                    }
+                },
+                    department: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Please select your Department/Office'
+                        }
+                    }
+                },
+                    }
+                }
+            })
+            .on('success.form.bv', function(e) {
+                $('#success_message').slideDown({ opacity: "show" }, "slow") // Do something ...
+                    $('#contact_form').data('bootstrapValidator').resetForm();
+
+                // Prevent form submission
+                e.preventDefault();
+
+                // Get the form instance
+                var $form = $(e.target);
+
+                // Get the BootstrapValidator instance
+                var bv = $form.data('bootstrapValidator');
+
+                // Use Ajax to submit form data
+                $.post($form.attr('action'), $form.serialize(), function(result) {
+                    console.log(result);
+                }, 'json');
+            });
+            });
+    </script>
  {% endblock %}
+
+
