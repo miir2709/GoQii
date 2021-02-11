@@ -3,10 +3,15 @@
 {% block content %}
 
     <form method="POST" style="margin-top: 20%;">
+      Select 1 from the two options:
+        <br><br>
         <label for="desc">Descriptive</label>
         <input id="desc" type="radio" name="result_type" value="desc"><br>
         <label for="plot">Plots</label>
         <input id="plot" type="radio" name="result_type" value="plot"><br>
+        <br>
+        Select 1 among the following options:
+        <br><br>
         <label for="temp">Temperature</label>
         <input id="temp" type="radio" name="column" value="Temperature"><br>
         <label for="pulse">Pulse</label>
@@ -19,11 +24,12 @@
         <input id="spo2" type="radio" name="column" value="SPO2"><br>
 
         <button type='submit'>Get Results</button>
+        <br><br>
     </form>
     {% if flag == 1 %}
     <img src="{{ filename1 }}" height="auto" width="50%"><br><br>
-    <img src="{{ filename3 }}" height="auto" width="50%"><br><br>
-    <img src="{{ filename2 }}" height="auto" width="50%" style="margin-bottom: 5%;">
+    <img src="{{ filename2 }}" height="auto" width="50%"><br><br>
+    <img src="{{ filename3 }}" height="auto" width="50%" style="margin-bottom: 5%;">
     {% endif %}
 
     {% if flag == 2 %}
@@ -102,15 +108,11 @@
             <td>{{count1}}</td>
           </tr>
           <tr>
-           <th scope="row"><a href = "https://www.geeksforgeeks.org/t-test/">T test</a></th>
+           <th scope="row"><a href = "https://www.geeksforgeeks.org/t-test/" target="_blank">T test</a></th>
             <td>{{t_1}}</td>
             <td>{{t_2}}</td>
           </tr>
-          
         </tbody>
       </table>
     {% endif %}
-<!--    <img src="{{ url_for('static', filename = '/img/{{filename}}') }}"></img>
-    <img src="{{ url_for('static', filename = '/img/plot1.png') }}"></img>-->
-    
 {% endblock content %}

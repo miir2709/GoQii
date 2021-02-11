@@ -3,15 +3,12 @@ from flask import Flask, render_template, url_for, flash, g
 from flask import redirect, request, session, abort, Response
 from flask_mysqldb import MySQL
 import MySQLdb.cursors
-import numpy as np
 import os
 import io
 import xlwt
-import pymysql
+from programs.plots import plot_line, plot_hist, plot_bland
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
-import time
 from scipy.stats import ttest_rel, ttest_1samp
 # from flask.ext.security import login_required
 from flask_login import login_required, LoginManager
@@ -415,7 +412,6 @@ def existingPatient(device_code):
     # print("\nHospital ", l_hosp)
     # output in bytes
     if request.method == "POST" and request.form['download'] == '3':
-        
         output = io.BytesIO()
         # create WorkBook object
         workbook = xlwt.Workbook()
@@ -564,81 +560,25 @@ def entercode():
 def results():
     flag = 0
     if request.method == "POST":
-        df = pd.read_csv("Final_Data_Updated_09_02.csv")
+        
 
         if request.form['result_type'] == 'plot':
             col = request.form['column']
             for filename in os.listdir('static/img'):
                 if filename.startswith(f'{col}_'):  # not to remove other images
                     os.remove('static/img/' + filename)
-            
-            plt.style.use('fivethirtyeight')        
-            temp_df = df[[col+'_Goqii', col+'_Hospital', 'Abs_'+col+'_Diff', 'Mean_'+col]]
-            temp_df['Mean_'+col] = np.floor(temp_df['Mean_'+col])
-            temp_mean = temp_df[['Abs_'+col+'_Diff', 'Mean_'+col]].groupby('Mean_'+col, sort=True, as_index=False).mean()
-            plt.figure(figsize=(16, 12))
-            plt.plot(temp_mean['Mean_'+col].values, temp_mean['Abs_'+col+'_Diff'].values, marker='o')
-            plt.title(f'{col} Vs Mean Absolute {col} Difference', fontsize=30)
-            plt.xlabel(f'{col}', fontsize=25)
-            plt.ylabel(f"Mean Absolute {col} Difference", fontsize=25)
-            plt.xticks(fontsize=18)
-            plt.yticks(fontsize=18)
-            new_graph_name = col+"_" + str(time.time()) + ".png"
-            plt.savefig('static/img/'+ new_graph_name)
-            new_graph_name = 'static/img/' + new_graph_name
 
-            fig, (ax1, ax2) = plt.subplots(1,2, figsize=(16, 12))
-            temp1 = np.floor(df[col+'_Goqii'])
-            ax1.hist(temp1, edgecolor='black', bins=7)
-            for p in ax1.patches:
-                ax1.annotate(np.round(p.get_height(), decimals=2),
-                        (p.get_x()+p.get_width()/2, p.get_height()),
-                        ha='center', va='center', xytext=(0,10), textcoords='offset points', fontsize=15)
-            ax1.set_xlabel(f'{col}_Goqii', fontsize=25)
-            ax1.set_ylabel("Frequency", fontsize=25)
-            ax1.set_title("HISTOGRAM", fontsize=30)
-            ax1.tick_params(axis="x", labelsize=20)
-            ax1.tick_params(axis="y", labelsize=20)
-            temp2 = np.floor(df[col+'_Hospital'])
-            ax2.hist(temp2, edgecolor='black', bins=7)
-            for p in ax2.patches:
-                ax2.annotate(np.round(p.get_height(), decimals=2),
-                        (p.get_x()+p.get_width()/2, p.get_height()),
-                        ha='center', va='center', xytext=(0,10), textcoords='offset points', fontsize=15)
-            ax2.set_xlabel(f'{col}_Hospital', fontsize=25)
-            ax2.set_ylabel("Frequency", fontsize=25)
-            ax2.set_title("HISTOGRAM", fontsize=30)
-            ax2.tick_params(axis="x", labelsize=15)
-            ax2.tick_params(axis="y", labelsize=15)
+            new_graph_name = plot_line(col)
 
-            new_graph_name1 = col+"_" + str(time.time()) + ".png"
-            plt.savefig('static/img/'+ new_graph_name1)
-            new_graph_name1 = 'static/img/' + new_graph_name1
+            new_graph_name1 = plot_hist(col)
 
-            plt.figure(figsize=(16, 12))
-            data1     = np.asarray(temp_df[col+'_Goqii'])
-            data2     = np.asarray(temp_df[col+'_Hospital'])
-            mean      = np.mean([data1, data2], axis=0)
-            diff      = data1 - data2                   # Difference between data1 and data2
-            md        = np.mean(diff)                   # Mean of the difference
-            sd        = np.std(diff, axis=0)            # Standard deviation of the difference
+            new_graph_name2 = plot_bland(col)
 
-            plt.scatter(mean, diff)
-            plt.axhline(md,           color='gray', linestyle='--')
-            plt.axhline(md + 1.96*sd, color='gray', linestyle='--')
-            plt.axhline(md - 1.96*sd, color='gray', linestyle='--')            
-            plt.xlabel(f"Mean {col}", fontsize=25)
-            plt.ylabel(f"{col} Difference", fontsize=25)
-            plt.title(f"Bland-Altman - {col}", fontsize=30)
-            plt.xticks(fontsize=18)
-            plt.yticks(fontsize=18)
-            new_graph_name2 = col+"_" + str(time.time()) + ".png"
-            plt.savefig('static/img/'+ new_graph_name2)
-            new_graph_name2 = 'static/img/' + new_graph_name2
             #return redirect(url_for('graphs'))
             flag = 1
             return render_template('results.html', title="Results", filename1=new_graph_name, filename2=new_graph_name1, filename3=new_graph_name2,flag=flag)
         else:
+            df = pd.read_csv("programs/Final_Data_Updated_09_02.csv")
             col = request.form['column']
             temp = df[col+"_Hospital"]
             meanh = np.mean(temp)
@@ -680,9 +620,6 @@ def results():
             )
     return render_template('results.html', title="Results", flag=flag)
 
-@app.route('/graphs', methods=['GET', 'POST'])
-def graphs():
-    return render_template('graphs.html', title="Results")
 
 if __name__ == '__main__':
     app.config['SECRET_KEY'] = '3f4c4a5de0fa9b6394afd0e9e1c423ad'

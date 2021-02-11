@@ -25,58 +25,37 @@
                             {% endfor %}
                         {% endif %}
                     {% endwith %}
-                    <!--======================-->
-
                     <form class="well form-horizontal" action=" " method="post"  id="contact_form">
                         <fieldset>
-                        
-                        <!-- Form Name -->
                         <h2 class="timepass text-center">Register New Patient</h2><br>
-                        
-                        <!-- Text input-->
-                        
                         <div class="form-group" >
-                          <label class="col-md-4 control-label">Device Code</label>  
+                          <label class="col-md-4 control-label">Device Code</label>
                           <div class="col-md-4 inputGroupContainer" >
                           <div class="input-group" style="width : 300px;">
-                          
                           <input  name="code" placeholder="device code" class="form-control"  type="text">
                             </div>
                           </div>
                         </div>
-                        
-                        <!-- Text input-->
-                        
                         <div class="form-group" >
-                            <label class="col-md-4 control-label" >Gender</label> 
+                            <label class="col-md-4 control-label" >Gender</label>
                             <div class="col-md-4 inputGroupContainer" >
                                 <div class="input-group" style="width: 300px;">
-                                    
                                     <input type="radio" id="male" name="gender" value="male" style="margin-top: 2%; margin-right:1%;">
                                     <label for="male" style="margin-right: 10%";>Male</label><br>
-                                    
                                     <input type="radio" id="female" name="gender" value="female" style="margin-top: 2%; margin-right:1%;">
                                     <label for="female">Female</label>
 
                                 </div>
                             </div>
                         </div>
-                        
-                          
-                        <!-- Text input-->
-                        
                         <div class="form-group" >
-                          <label class="col-md-4 control-label">Age</label>  
+                          <label class="col-md-4 control-label">Age</label>
                           <div class="col-md-4 inputGroupContainer" >
                           <div class="input-group" style="width: 300px;">
-                          
                           <input  name="age" placeholder="Age" class="form-control"  type="number">
                             </div>
                           </div>
                         </div>
-                        
-                        <!-- Text input-->
-                        
                         <div class="form-group" >
                           <label class="col-md-4 control-label" >Religion</label> 
                             <div class="col-md-4 inputGroupContainer" >
@@ -86,59 +65,42 @@
                             </div>
                           </div>
                         </div>
-                        
-                        <!-- Text input-->
-                        
                         <div class="form-group"  >
                           <label class="col-md-4 control-label" >Occupation</label> 
                             <div class="col-md-4 inputGroupContainer" >
                             <div class="input-group" style="width: 300px;">
-                          
                           <input name="occupation" placeholder="Occupation" class="form-control"  type="text">
                             </div>
                           </div>
                         </div>
-                        
-                        <!-- Text input-->
                         <div class="form-group" >
-                          <label class="col-md-4 control-label">Date of Admission</label>  
+                          <label class="col-md-4 control-label">Date of Admission</label>
                             <div class="col-md-4 inputGroupContainer" >
                             <div class="input-group" style="width: 300px;">
-                                
                           <input name="date_of_admission" placeholder="Date of Admission" class="form-control"  type="date">
                             </div>
                           </div>
                         </div>
-                        
-                        
-                        <!-- Text input-->
-                               
                         <div class="form-group" >
                           <label class="col-md-4 control-label">Date of Covid Positive Test</label>  
                             <div class="col-md-4 inputGroupContainer">
                             <div class="input-group" style="width: 300px;">
-                                
                           <input name="date_of_test" placeholder="Date of Covid Positive Test" class="form-control" type="date" style="width: 300px;"> 
                             </div>
                           </div>
                         </div>
-                        <!-- Text input-->
-        
                         <div class="form-group" >
                             <label class="col-md-4 control-label">Date of start of wearable device</label>  
                                 <div class="col-md-4 inputGroupContainer" >
                                 <div class="input-group" style="width: 300px;">
-                                    
                             <input name="date_of_device" placeholder="(639)" class="form-control" type="date" style="width: 300px;">
                                 </div>
                             </div>
                             </div>
-                               
                         <div class="form-group" >
                             <label class="col-md-4 control-label">Date of Discharge</label>  
                               <div class="col-md-4 inputGroupContainer" >
                               <div class="input-group" style="width: 300px;">
-                                  
                             <input name="date_of_discharge" placeholder="Date of Discharge" class="form-control" type="date" style="width: 300px;">
                               </div>
                             </div>
@@ -147,129 +109,16 @@
                         <div class="form-group" >
                           <label class="col-md-4 control-label"></label>
                           <div class="col-md-4"><br>
-                            <button type="submit" class="btn btn-dark" >SUBMIT 
-                            </button>
+                            <button type="submit" class="btn btn-dark" >SUBMIT</button>
                           </div>
                         </div>
-                        
                         </fieldset>
                         </form>
- 
                 </div>
             </div>
         </div>
     </section>
-    
-    <script>
-            $(document).ready(function() {
-            $('#contact_form').bootstrapValidator({
-            // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
-            feedbackIcons: {
-                valid: 'glyphicon glyphicon-ok',
-                invalid: 'glyphicon glyphicon-remove',
-                validating: 'glyphicon glyphicon-refresh'
-            },
-            fields: {
-                first_name: {
-                    validators: {
-                            stringLength: {
-                            min: 1,
-                        },
-                            notEmpty: {
-                            message: 'Please enter your First Name'
-                        }
-                    }
-                },
-                    last_name: {
-                    validators: {
-                            stringLength: {
-                            min: 2,
-                        },
-                        notEmpty: {
-                            message: 'Please enter your Last Name'
-                        }
-                    }
-                },
-                    user_name: {
-                    validators: {
-                            stringLength: {
-                            min: 8,
-                        },
-                        notEmpty: {
-                            message: 'Please enter your Username'
-                        }
-                    }
-                },
-                    user_password: {
-                    validators: {
-                            stringLength: {
-                            min: 8,
-                        },
-                        notEmpty: {
-                            message: 'Please enter your Password'
-                        }
-                    }
-                },
-                confirm_password: {
-                    validators: {
-                            stringLength: {
-                            min: 8,
-                        },
-                        notEmpty: {
-                            message: 'Please confirm your Password'
-                        }
-                    }
-                },
-                email: {
-                    validators: {
-                        notEmpty: {
-                            message: 'Please enter your Email Address'
-                        },
-                        emailAddress: {
-                            message: 'Please enter a valid Email Address'
-                        }
-                    }
-                },
-                contact_no: {
-                    validators: {
-                        stringLength: {
-                            min: 12, 
-                            max: 12,
-                        notEmpty: {
-                            message: 'Please enter your Contact No.'
-                            }
-                    }
-                },
-                    department: {
-                    validators: {
-                        notEmpty: {
-                            message: 'Please select your Department/Office'
-                        }
-                    }
-                },
-                    }
-                }
-            })
-            .on('success.form.bv', function(e) {
-                $('#success_message').slideDown({ opacity: "show" }, "slow") // Do something ...
-                    $('#contact_form').data('bootstrapValidator').resetForm();
 
-                // Prevent form submission
-                e.preventDefault();
-
-                // Get the form instance
-                var $form = $(e.target);
-
-                // Get the BootstrapValidator instance
-                var bv = $form.data('bootstrapValidator');
-
-                // Use Ajax to submit form data
-                $.post($form.attr('action'), $form.serialize(), function(result) {
-                    console.log(result);
-                }, 'json');
-            });
-            });
-    </script>
  {% endblock %}
 
 
