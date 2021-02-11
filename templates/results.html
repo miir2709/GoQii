@@ -1,0 +1,804 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+    <form method="POST" style="margin-top: 20%;">
+        <label for="desc">Descriptive</label>
+        <input id="desc" type="radio" name="result_type" value="desc"><br>
+        <label for="plot">Plots</label>
+        <input id="plot" type="radio" name="result_type" value="plot"><br>
+        <label for="temp">Temperature</label>
+        <input id="temp" type="radio" name="column" value="Temperature"><br>
+        <label for="pulse">Pulse</label>
+        <input id="pulse" type="radio" name="column" value="Pulse"><br>
+        <label for="bp_high">BP High</label>
+        <input id="bp_high" type="radio" name="column" value="BP_High"><br>
+        <label for="bp_low">BP Low</label>
+        <input id="bp_low" type="radio" name="column" value="BP_Low"><br>
+        <label for="spo2">SPO2</label>
+        <input id="spo2" type="radio" name="column" value="SPO2"><br>
+
+        <button type='submit'>Get Results</button>
+    </form>
+    {% if flag == 1 %}
+    <img src="{{ filename1 }}" height="auto" width="50%"><br><br>
+    <img src="{{ filename3 }}" height="auto" width="50%"><br><br>
+    <img src="{{ filename2 }}" height="auto" width="50%" style="margin-bottom: 5%;">
+    {% endif %}
+
+    {% if flag == 2 %}
+    <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">Stats</th>
+            <th scope="col">{{col}} Hospital</th>
+            <th scope="col">{{col}} Goqii</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Mean</th>
+            <td>{{mean}}</td>
+            <td>{{mean1}}</td>
+          </tr>
+          <tr>
+            <th scope="row">Median</th>
+            <td>{{median}}</td>
+            <td>{{median1}}</td>
+          </tr>
+          <tr>
+            <th scope="row">Mode</th>
+            <td>{{mode}}</td>
+            <td>{{mode1}}</td>
+          </tr>
+          <tr>
+            <th scope="row">Standard Deviation</th>
+            <td>{{std}}</td>
+            <td>{{std1}}</td>
+          </tr>
+          <tr>
+            <th scope="row">Variance</th>
+            <td>{{var}}</td>
+            <td>{{var1}}</td>
+          </tr>
+          <tr>
+            <th scope="row">Standard Error</th>
+            <td>{{stderr}}</td>
+            <td>{{stderr1}}</td>
+          </tr>
+          <tr>
+            <th scope="row">Kurtosis</th>
+            <td>{{kurt}}</td>
+            <td>{{kurt1}}</td>
+          </tr>
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+
+
+
+          
+        <tr>
+            <th scope="row">Skew</th>
+            <td>{{skew}}</td>
+            <td>{{skew1}}</td>
+          </tr>
+          <tr>
+            <th scope="row">Range</th>
+            <td>{{ran}}</td>
+            <td>{{ran1}}</td>
+          </tr>
+            <tr>
+            <th scope="row">Minimum</th>
+            <td>{{minimum}}</td>
+            <td>{{minimum1}}</td>
+          </tr>
+            <tr>
+            <th scope="row">Maximum</th>
+            <td>{{maximum}}</td>
+            <td>{{maximum1}}</td>
+          </tr>
+            <tr>
+            <th scope="row">Add</th>
+            <td>{{add}}</td>
+            <td>{{add1}}</td>
+          </tr>
+          <tr>
+            <th scope="row">Count</th>
+            <td>{{count}}</td>
+            <td>{{count1}}</td>
+          </tr>
+          <tr>
+           <th scope="row"><a href = "https://www.geeksforgeeks.org/t-test/">T test</a></th>
+            <td>{{t_1}}</td>
+            <td>{{t_2}}</td>
+          </tr>
+          
+        </tbody>
+      </table>
+    {% endif %}
+<!--    <img src="{{ url_for('static', filename = '/img/{{filename}}') }}"></img>
+    <img src="{{ url_for('static', filename = '/img/plot1.png') }}"></img>-->
+    
+{% endblock content %}
