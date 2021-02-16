@@ -1,13 +1,13 @@
 {% extends"layout.html" %}
     {% block content %}
         <!-- End Header Area -->
-
         <!-- start banner Area -->
-        <section class="banner-area relative" id="home" style="background-image: url('static/img/background.jpeg'); height: 100%; width: 100%; background-repeat: no-repeat;">
-            <div class="container">
+        <section class="banner-area relative" id="home" >
+            <div class="container" style="background-image: url('static/img/background.jpeg'); height: 100%; width: 100%; background-repeat: no-repeat; background-position: center;">
                     <div class="row fullscreen align-items-center justify-content-center">
-                        <div class="banner-content col-lg-6 col-md-12">
+                        <div class="banner-content col-lg-6 col-md-6">
                             <a href ="{{ url_for('entercode') }}"><button class="primary-btn2 mt-20 text-uppercase ">Add Data For existing Patient<span class="lnr lnr-arrow-right"></span></button></a>
+
                             <a href ="{{ url_for('newPatient') }}"><button class="primary-btn2 mt-20 text-uppercase ">Add New Patient<span class="lnr lnr-arrow-right"></span></button></a>
                         </div>
                         <!-- <div class=" d-flex align-self-end img-right">
@@ -16,5 +16,4 @@
                     </div>
             </div>
         </section>
-
-    {% endblock content %}
+{% endblock content %}

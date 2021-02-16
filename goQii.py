@@ -74,7 +74,7 @@ def login():
 
 
 @app.route('/Patient', methods=['GET', 'POST'])
-#@login_required
+@login_required
 def newPatient():
     """Fun for adding a new Patient from the Drive."""
     if request.method == 'POST':
@@ -117,7 +117,7 @@ def newPatient():
 
 @app.route('/existingPatient/<device_code>', methods=['GET', 'POST'])
 @app.route('/existingPatient', methods=['GET', 'POST'])
-#@login_required
+@login_required
 def existingPatient(device_code):
     """Fun for adding device and hospital data to Existing Patient day-wise."""
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
@@ -560,8 +560,6 @@ def entercode():
 def results():
     flag = 0
     if request.method == "POST":
-        
-
         if request.form['result_type'] == 'plot':
             col = request.form['column']
             for filename in os.listdir('static/img'):

@@ -164,6 +164,13 @@ td, th {
   border-radius: 0px;
 }
 
+
+.plot-graphs{
+  margin: auto;
+  width: 50%;
+  border: 3px solid green;
+  padding: 10px;
+}
 /**
  * For modern browsers
  * 1. The space content is one way to avoid an Opera bug when the
@@ -2771,3 +2778,19 @@ p {
   /* codepen.io: newPatient */
   #success_message{ display: none;}
   /* end codepen.io: newPatient */
+
+.card:hover {
+    box-shadow: rgba(0, 0, 0, 0.22) 0px 19px 43px;
+    transform: translate3d(0px, -2px, -300px);
+    transform: scale(1.3);
+    overflow: hidden ;
+    z-index: 100;
+    transition: transform .5s, visibility .25s ease-in;
+  }
+
+#navbarSupportedContent ul li a.active
+{
+    text-shadow:rgb(39, 39, 83);
+    color: rgb(34, 25, 82);
+    text-shadow: #111111;
+}
