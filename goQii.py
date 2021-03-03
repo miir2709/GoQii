@@ -34,26 +34,35 @@ app.config['MYSQL_USER'] = "root"
 app.config['MYSQL_PASSWORD'] = "0000"
 app.config['MYSQL_DB'] = "goqii"
 mysql = MySQL(app)
-#login_manager = LoginManager()
-#login_manager.login_view = 'login'
-#login_manager.init_app(app)
+# login_manager = LoginManager()
+# login_manager.login_view = 'login'
+# login_manager.init_app(app)
 
 
 # @login_manager.user_loader
 # def load_user(user_id):
 #     return User.get(user_id)
+@app.before_request
+def before_request():
+    g.user = None
+    if 'user' in session:
+        g.user = session['user']
 
 @app.route('/home')
-#@login_required
+# @login_required
 def home():
     """F."""
-    return render_template('home.html', title='Home')
+    print(session)
+    if g.user:
+        return render_template('home.html', title='Home')
+    return redirect(url_for('login'))
 
 
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     """F."""
+
     if request.method == 'POST':
         username = (request.form["username"])
         password = (request.form["passwd"])
@@ -65,7 +74,12 @@ def login():
         # print(user)
         if user > 0:
             user = cursor.fetchall()
+            print(user)
+            session.pop('user',None)
+            session["user"] = username
+            print(session)
             return redirect(url_for('home'))
+            # return render_template('home.html', title='Home')
         else:
             flash("Incorrect Username", "error")
             return render_template('login.html', title='Login')
@@ -74,7 +88,6 @@ def login():
 
 
 @app.route('/Patient', methods=['GET', 'POST'])
-@login_required
 def newPatient():
     """Fun for adding a new Patient from the Drive."""
     if request.method == 'POST':
@@ -112,12 +125,13 @@ def newPatient():
             flash("Use different Device Code", "info")
             return render_template("newPatient.html", title='Input Data')
     else:
-        return render_template('newPatient.html', title='Input Data')
-
+        if g.user:
+            return render_template('newPatient.html', title='Input Data')
+        else:
+            return redirect(url_for('login'))
 
 @app.route('/existingPatient/<device_code>', methods=['GET', 'POST'])
 @app.route('/existingPatient', methods=['GET', 'POST'])
-@login_required
 def existingPatient(device_code):
     """Fun for adding device and hospital data to Existing Patient day-wise."""
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
@@ -472,19 +486,21 @@ def existingPatient(device_code):
             list1=list1
         )
     else:
+        if g.user:
 
-        return render_template(
-            'existingPatient.html', title='Input Data', info=patient_info[0],
-            device_code=device_code, currentDayNum=currentDayNum,
-            currentDate=currentDate,
-            l_device=l_device, l_hosp=l_hosp,
-            list1=list1
-            )
+            return render_template(
+                'existingPatient.html', title='Input Data', info=patient_info[0],
+                device_code=device_code, currentDayNum=currentDayNum,
+                currentDate=currentDate,
+                l_device=l_device, l_hosp=l_hosp,
+                list1=list1
+                )
+        else:
+            return redirect(url_for('login'))
 # end 13:45
 
 
 @app.route('/entercode', methods=['GET', 'POST'])
-#@login_required
 def entercode():
     """Fun for entering device Code."""
     if request.method == 'POST':
@@ -554,7 +570,11 @@ def entercode():
                 return render_template('inputcode.html', title='Input Data')
 
     else:
-        return render_template('inputcode.html', title='Input Data')
+        if g.user:
+            return render_template('inputcode.html', title='Input Data')
+        else:
+            return redirect(url_for('login'))
+
 
 @app.route("/results", methods=['GET', 'POST'])
 def results():
@@ -616,8 +636,15 @@ def results():
             mean1 = mean1, median1 = median1, mode1 =  mode1, std1 = std1, var1 = var1, stderr1 = stderr1, kurt1 = kurt1, skew1 = skew1, ran1 = ran1, minimum1 = minimum1, maximum1 = maximum1,add1 =  add1, count1 = count1,
             t_2 = t_2, t_1 = t_1, col=col
             )
-    return render_template('results.html', title="Results", flag=flag)
+    if g.user:
+        return render_template('results.html', title="Results", flag=flag)
+    else:
+            return redirect(url_for('login'))
 
+@app.route('/logout')
+def logout():
+   session.pop('user', None)
+   return redirect(url_for('home'))
 
 if __name__ == '__main__':
     app.config['SECRET_KEY'] = '3f4c4a5de0fa9b6394afd0e9e1c423ad'

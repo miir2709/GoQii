@@ -1898,7 +1898,7 @@ body {
 }
 
 nav {
-  margin-right: 70px;
+/*  margin-right: 70px;*/
   -webkit-transition: all 0.3s ease 0s;
   -moz-transition: all 0.3s ease 0s;
   -o-transition: all 0.3s ease 0s;
@@ -1934,7 +1934,7 @@ nav a {
   font-size: 12px;
   font-weight: 500;
   text-transform: uppercase;
-  margin: 0 25px;
+  margin: 0 20px;
   display: inline-block;
 }
 
@@ -2779,7 +2779,7 @@ p {
   #success_message{ display: none;}
   /* end codepen.io: newPatient */
 
-.card:hover {
+.f:hover {
     box-shadow: rgba(0, 0, 0, 0.22) 0px 19px 43px;
     transform: translate3d(0px, -2px, -300px);
     transform: scale(1.3);
