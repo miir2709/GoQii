@@ -38,14 +38,19 @@ app.config['MYSQL_USER'] = "root"
 app.config['MYSQL_PASSWORD'] = "0000"
 app.config['MYSQL_DB'] = "goqii"
 mysql = MySQL(app)
-#login_manager = LoginManager()
-#login_manager.login_view = 'login'
-#login_manager.init_app(app)
+# login_manager = LoginManager()
+# login_manager.login_view = 'login'
+# login_manager.init_app(app)
 
 
 # @login_manager.user_loader
 # def load_user(user_id):
 #     return User.get(user_id)
+@app.before_request
+def before_request():
+    g.user = None
+    if 'user' in session:
+        g.user = session['user']
 
 @app.before_request
 def before_request():
@@ -129,6 +134,7 @@ def compare():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     """F."""
+
     if request.method == 'POST':
         username = (request.form["username"])
         password = (request.form["passwd"])
@@ -143,6 +149,7 @@ def login():
             session.pop('user',None)
             session["user"] = username
             return redirect(url_for('home'))
+            # return render_template('home.html', title='Home')
         else:
             flash("Incorrect Username", "error")
             return render_template('login.html', title='Login')
@@ -151,7 +158,6 @@ def login():
 
 
 @app.route('/Patient', methods=['GET', 'POST'])
-@login_required
 def newPatient():
     """Fun for adding a new Patient from the Drive."""
     if request.method == 'POST':
@@ -194,10 +200,8 @@ def newPatient():
         else:
             return redirect(url_for('login'))
 
-
 @app.route('/existingPatient/<device_code>', methods=['GET', 'POST'])
 @app.route('/existingPatient', methods=['GET', 'POST'])
-@login_required
 def existingPatient(device_code):
     """Fun for adding device and hospital data to Existing Patient day-wise."""
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
@@ -567,7 +571,6 @@ def existingPatient(device_code):
 
 
 @app.route('/entercode', methods=['GET', 'POST'])
-#@login_required
 def entercode():
     """Fun for entering device Code."""
     if request.method == 'POST':
