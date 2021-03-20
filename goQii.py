@@ -16,6 +16,7 @@ from scipy.stats import ttest_rel, ttest_1samp
 from flask_login import login_required, LoginManager
 from werkzeug.utils import secure_filename
 import openpyxl
+
 # from functools import wraps
 # from flask import g, request, redirect, url_for
 
@@ -79,6 +80,11 @@ def open():
 def compare():
     flag = 0
     if request.method == 'POST':
+
+        for filename in os.listdir('static/img'):
+            if filename.startswith('Line_') or filename.startswith('Histogram_') or filename.startswith('Bland_'):  # not to remove other images
+                os.remove('static/img/' + filename)
+
         flag = 1
         file1 = request.files['file1']
         file2 = request.files['file2']
@@ -127,7 +133,6 @@ def compare():
         mean=meanh, median=median, mode=mode, std=std, var=var, stderr=stderr, kurt=kurt, skew=skew, ran=ran, minimum=minimum, maximum=maximum, add=add, count=count, 
         mean1 = mean1, median1 = median1, mode1 =  mode1, std1 = std1, var1 = var1, stderr1 = stderr1, kurt1 = kurt1, skew1 = skew1, ran1 = ran1, minimum1 = minimum1, maximum1 = maximum1,add1 =  add1, count1 = count1,
         t_2 = t_2, t_1 = t_1, flag=flag)
-
 
     return render_template('compare.html', title="Compare", flag=flag)
 

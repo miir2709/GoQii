@@ -79,7 +79,7 @@
 
             <label for='file2'>Upload File 2</label>
             <input type='file' id="file2" name="file2" required accept=".xlsx">
-            
+            <input type="hidden" value='comparison' name="name">
             <button type="submit">Get Comparison</button>
         </form>
         {% if flag == 1 %}
@@ -178,6 +178,7 @@
           </tr>
         </tbody>
       </table>
+      <button id="downloadBtn" class='btn btn-link' onclick="getPdf()">Download Report</button>
       {% endif %}
     </div>
 
@@ -191,6 +192,10 @@
                     }
                 });
             });
+
+            function getPdf() {
+            window.print()
+            }
         </script>
 
         <script src="{{ url_for( 'static' , filename = 'js/vendor/bootstrap.min.js') }}"></script>
