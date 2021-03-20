@@ -7,11 +7,15 @@ import os
 import io
 import xlwt
 from programs.plots import plot_line, plot_hist, plot_bland
+import programs.compare as compare
+from programs.compare import line, hist, bland
 import pandas as pd
 import numpy as np
 from scipy.stats import ttest_rel, ttest_1samp
 # from flask.ext.security import login_required
 from flask_login import login_required, LoginManager
+from werkzeug.utils import secure_filename
+import openpyxl
 # from functools import wraps
 # from flask import g, request, redirect, url_for
 
@@ -43,14 +47,85 @@ mysql = MySQL(app)
 # def load_user(user_id):
 #     return User.get(user_id)
 
+@app.before_request
+def before_request():
+    g.user = None
+    if 'user' in session:
+        g.user = session['user']
+
 @app.route('/home')
-#@login_required
+# @login_required
 def home():
     """F."""
-    return render_template('home.html', title='Home')
+#    print(session)
+    if g.user:
+        return render_template('home.html', title='Home')
+    return redirect(url_for('login'))
+
+
+
 
 
 @app.route('/', methods=['GET', 'POST'])
+def open():
+    return render_template('open.html', title='Home')
+
+@app.route('/compare', methods=['GET', 'POST'])
+def compare():
+    flag = 0
+    if request.method == 'POST':
+        flag = 1
+        file1 = request.files['file1']
+        file2 = request.files['file2']
+        file1.save(secure_filename(file1.filename))
+        file2.save(secure_filename(file2.filename))
+        file1 = pd.read_excel(file1.filename, engine='openpyxl')
+        file2 = pd.read_excel(file2.filename, engine='openpyxl')
+
+        line_plot = line(file1, file2)
+        hist_plot = hist(file1, file2)
+        bland_plot = bland(file1, file2)
+
+        temp = file1.iloc[:, 1]
+        meanh = np.mean(temp)
+        median = np.median(temp)
+        mode = temp.mode()[0]
+        std = np.std(temp)
+        var = np.var(temp)
+        stderr = std/(np.sqrt(len(temp)))
+        kurt = temp.kurtosis()
+        skew = temp.skew()
+        ran = len(temp.unique())
+        minimum = temp.min()
+        maximum = temp.max()
+        add = sum(temp)
+        count = len(temp)
+
+        temp1 = file2.iloc[:, 1]
+        mean1 = np.mean(temp1)
+        median1 = np.median(temp1)
+        mode1 = temp1.mode()[0]
+        std1 = np.std(temp1)
+        var1 = np.var(temp1)
+        stderr1 = std/(np.sqrt(len(temp1)))
+        kurt1 = temp1.kurtosis()
+        skew1 = temp1.skew()
+        ran1 = len(temp1.unique())
+        minimum1 = temp1.min()
+        maximum1 = temp1.max()
+        add1 = sum(temp1)
+        count1 = len(temp1)
+
+        t_2 = ttest_rel(temp, temp1)[1]
+        t_1 = ttest_1samp(temp.values, np.mean(temp1.values))[1]
+        return render_template('compare.html', title='Compare', line_plot=line_plot, hist_plot=hist_plot, bland_plot=bland_plot, 
+        mean=meanh, median=median, mode=mode, std=std, var=var, stderr=stderr, kurt=kurt, skew=skew, ran=ran, minimum=minimum, maximum=maximum, add=add, count=count, 
+        mean1 = mean1, median1 = median1, mode1 =  mode1, std1 = std1, var1 = var1, stderr1 = stderr1, kurt1 = kurt1, skew1 = skew1, ran1 = ran1, minimum1 = minimum1, maximum1 = maximum1,add1 =  add1, count1 = count1,
+        t_2 = t_2, t_1 = t_1, flag=flag)
+
+
+    return render_template('compare.html', title="Compare", flag=flag)
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     """F."""
@@ -65,6 +140,8 @@ def login():
         # print(user)
         if user > 0:
             user = cursor.fetchall()
+            session.pop('user',None)
+            session["user"] = username
             return redirect(url_for('home'))
         else:
             flash("Incorrect Username", "error")
@@ -112,7 +189,10 @@ def newPatient():
             flash("Use different Device Code", "info")
             return render_template("newPatient.html", title='Input Data')
     else:
-        return render_template('newPatient.html', title='Input Data')
+        if g.user:
+            return render_template('newPatient.html', title='Input Data')
+        else:
+            return redirect(url_for('login'))
 
 
 @app.route('/existingPatient/<device_code>', methods=['GET', 'POST'])
@@ -473,13 +553,16 @@ def existingPatient(device_code):
         )
     else:
 
-        return render_template(
-            'existingPatient.html', title='Input Data', info=patient_info[0],
-            device_code=device_code, currentDayNum=currentDayNum,
-            currentDate=currentDate,
-            l_device=l_device, l_hosp=l_hosp,
-            list1=list1
-            )
+        if g.user:
+            return render_template(
+                'existingPatient.html', title='Input Data', info=patient_info[0],
+                device_code=device_code, currentDayNum=currentDayNum,
+                currentDate=currentDate,
+                l_device=l_device, l_hosp=l_hosp,
+                list1=list1
+                )
+        else:
+            return redirect(url_for('login'))
 # end 13:45
 
 
@@ -554,7 +637,10 @@ def entercode():
                 return render_template('inputcode.html', title='Input Data')
 
     else:
-        return render_template('inputcode.html', title='Input Data')
+        if g.user:
+            return render_template('inputcode.html', title='Input Data')
+        else:
+            return redirect(url_for('login'))
 
 @app.route("/results", methods=['GET', 'POST'])
 def results():
@@ -616,7 +702,15 @@ def results():
             mean1 = mean1, median1 = median1, mode1 =  mode1, std1 = std1, var1 = var1, stderr1 = stderr1, kurt1 = kurt1, skew1 = skew1, ran1 = ran1, minimum1 = minimum1, maximum1 = maximum1,add1 =  add1, count1 = count1,
             t_2 = t_2, t_1 = t_1, col=col
             )
-    return render_template('results.html', title="Results", flag=flag)
+    if g.user:
+        return render_template('results.html', title="Results", flag=flag)
+    else:
+        return redirect(url_for('login'))
+
+@app.route('/logout')
+def logout():
+   session.pop('user', None)
+   return redirect(url_for('home'))
 
 
 if __name__ == '__main__':
